@@ -1,0 +1,43 @@
+# Default configuration for the quant lab.
+# Values here are intentionally boring and explicit.
+
+[paths]
+data_raw = "data/raw"
+data_normalized = "data/normalized"
+data_catalogs = "data/catalogs"
+experiments = "experiments"
+
+[data]
+# Default source + defaults used by the CLI when flags are omitted.
+exchange = "binance"
+market = "futures"
+base_url = "https://data.binance.vision"
+request_timeout = 120
+verify_checksums = true
+# Binance moved to including a header row in newer archives; the normalizer
+# handles both, but this pins the expected archive granularity for downloads.
+prefer_monthly = true
+
+[execution]
+# Every backtest must state its assumptions explicitly. These are the defaults,
+# not hidden magic. They are recorded in every experiment result.
+initial_capital = 100000.0
+# `fees` is the flat per-side fee used for market orders when maker/taker is
+# not otherwise specified. It maps to the VectorBT `fees` argument.
+fees = 0.0004
+maker_fee = 0.0002
+taker_fee = 0.0004
+slippage = 0.0002
+position_size = 1.0
+leverage = 1.0
+max_position_size = 1.0
+funding = 0.0
+execution_delay_bars = 1
+allow_short = true
+# Policy when a single bar touches both stop and target:
+#   worst_case | best_case | stop_first | target_first
+intrabar_policy = "worst_case"
+
+[backtest]
+annualization = 365.0
+initial_capital = 100000.0

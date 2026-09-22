@@ -1,0 +1,19 @@
+# Data and experiment artifacts (regenerate locally)
+data/raw/
+data/normalized/
+data/catalogs/*.json
+experiments/results/
+experiments/reports/
+experiments/configs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store

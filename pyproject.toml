@@ -1,0 +1,66 @@
+[project]
+name = "quant-lab"
+version = "0.1.0"
+description = "A standalone personal crypto quantitative research and backtesting lab"
+readme = "README.md"
+requires-python = ">=3.12,<3.15"
+license = { text = "MIT" }
+authors = [{ name = "quant-lab" }]
+dependencies = [
+    "polars>=1.30",
+    "duckdb>=1.3",
+    "pyarrow>=18.0",
+    "numpy>=2.2",
+    "scipy>=1.14",
+    "pandas>=2.2",
+    "statsmodels>=0.14",
+    "vectorbt>=1.0",
+    "quantstats>=0.0.77",
+    "matplotlib>=3.9",
+    "plotly>=5.24,<6",
+    "requests>=2.32",
+    "typer>=0.15",
+    "rich>=13.9",
+    "tomli-w>=1.1",
+]
+
+[project.optional-dependencies]
+optimization = ["optuna>=4.0"]
+notebook = ["jupyterlab>=4.3", "ipykernel>=6.29", "plotly>=5.24"]
+event = ["nautilus-trader>=1.200"]
+dashboard = ["streamlit>=1.40"]
+dev = ["pytest>=8.3", "pytest-cov>=6.0", "ruff>=0.9"]
+
+[project.scripts]
+quantlab = "quant_lab.cli.main:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/quant_lab"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Typer's documented API uses function calls in argument defaults.
+"src/quant_lab/cli/*" = ["B008"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-cov>=6.0",
+    "ruff>=0.9",
+]

@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breakout, Confluence and Regime Study — BTCUSDT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fffff8;
+    --ink:#111;
+    --muted:#6b6b63;
+    --faint:#9a978c;
+    --hair:#d9d5c7;
+    --rule:#b9b4a4;
+    --accent:#8c1d18;
+    --blue:#3a5a78;
+    --serif:"EB Garamond","ET Book",Palatino,"Palatino Linotype","Book Antiqua",Cambria,Georgia,serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+    --measure:40rem;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:20px;
+    line-height:1.55;
+    font-feature-settings:"liga" 1,"kern" 1,"onum" 1;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{
+    max-width:1420px;
+    margin:0 auto;
+    padding:0 48px 8rem;
+  }
+  .col{
+    width:var(--measure);
+    margin-left:6rem;
+    position:relative;
+  }
+  @media (max-width:1080px){
+    .wrap{padding:0 28px 6rem}
+    .col{margin-left:0;width:100%;max-width:44rem}
+  }
+
+  /* ---------- masthead ---------- */
+  header.masthead{
+    padding:5.5rem 0 1.5rem;
+    width:var(--measure);
+    margin-left:6rem;
+  }
+  @media (max-width:1080px){header.masthead{margin-left:0}}
+  .kicker{
+    font-variant:small-caps;
+    letter-spacing:.14em;
+    font-size:.78rem;
+    color:var(--muted);
+    display:flex;
+    gap:.9rem;
+    align-items:baseline;
+    flex-wrap:wrap;
+  }
+  .kicker .dot{color:var(--rule)}
+  h1.title{
+    font-weight:500;
+    font-size:3.05rem;
+    line-height:1.06;
+    letter-spacing:-.01em;
+    margin:.7rem 0 .3rem;
+  }
+  h1.title em{font-style:italic;color:var(--accent)}
+  .subtitle{
+    font-style:italic;
+    font-size:1.28rem;
+    color:#3a3a34;
+    margin:.2rem 0 1.6rem;
+    max-width:34rem;
+  }
+  .byline{
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    padding:.55rem 0;
+    font-size:.82rem;
+    color:var(--muted);
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    display:flex;
+    gap:1.4rem;
+    flex-wrap:wrap;
+  }
+  .status{
+    color:var(--accent);
+  }
+
+  /* ---------- typography ---------- */
+  p{margin:0 0 1.05rem;text-align:justify;hyphens:auto}
+  .abstract p{
+    font-size:1.12rem;
+    line-height:1.5;
+  }
+  .abstract p.lead::first-letter{
+    float:left;
+    font-size:4.5rem;
+    line-height:.72;
+    padding:.35rem .6rem .1rem 0;
+    font-weight:500;
+    color:var(--ink);
+  }
+  h2{
+    font-weight:500;
+    font-size:1.62rem;
+    line-height:1.15;
+    margin:3.4rem 0 .8rem;
+    padding-top:.6rem;
+    border-top:1px solid var(--rule);
+    scroll-margin-top:1rem;
+  }
+  h2 .num{
+    font-variant:small-caps;
+    letter-spacing:.05em;
+    color:var(--accent);
+    font-size:.95rem;
+    display:block;
+    margin-bottom:.15rem;
+  }
+  h3{
+    font-weight:500;
+    font-style:italic;
+    font-size:1.14rem;
+    margin:2rem 0 .5rem;
+  }
+  h4{
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    font-weight:600;
+    font-size:.92rem;
+    margin:1.6rem 0 .35rem;
+    color:#2a2a26;
+  }
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+  a:hover{border-bottom-color:var(--accent)}
+  strong{font-weight:600}
+  .small{font-size:.86rem;color:var(--muted)}
+  .sc{font-variant:small-caps;letter-spacing:.06em}
+  code,kbd,samp{font-family:var(--mono);font-size:.8em;background:#f3f1e8;padding:.05em .3em;border-radius:2px}
+
+  /* ---------- epigraph ---------- */
+  blockquote.epigraph{
+    margin:1.8rem 0 2.4rem;
+    padding-left:1.2rem;
+    border-left:2px solid var(--rule);
+    font-style:italic;
+    color:#3c3a34;
+    font-size:1.04rem;
+  }
+  blockquote.epigraph cite{
+    display:block;
+    font-style:normal;
+    font-variant:small-caps;
+    letter-spacing:.06em;
+    font-size:.8rem;
+    color:var(--muted);
+    margin-top:.45rem;
+  }
+
+  /* ---------- verdict ---------- */
+  .verdict{
+    margin:2rem 0 0;
+    padding:1.1rem 1.3rem;
+    background:#f6f3ea;
+    border-top:2px solid var(--accent);
+    border-bottom:1px solid var(--rule);
+  }
+  .verdict .label{
+    font-variant:small-caps;
+    letter-spacing:.12em;
+    font-size:.75rem;
+    color:var(--accent);
+    font-weight:600;
+  }
+  .verdict p{margin:.35rem 0 0;text-align:left;font-size:1.06rem}
+
+  /* ---------- sidenotes ---------- */
+  .sidenote{
+    float:right;
+    clear:right;
+    width:15rem;
+    margin-right:-19rem;
+    margin-top:.25rem;
+    margin-bottom:.9rem;
+    font-size:.78rem;
+    line-height:1.34;
+    color:#57554d;
+    text-align:left;
+    hyphens:none;
+  }
+  .sidenote .sn{
+    font-variant:small-caps;
+    color:var(--accent);
+    font-weight:600;
+    margin-right:.35em;
+    letter-spacing:.04em;
+  }
+  .sidenote.plain{margin-top:-.2rem;border-top:1px solid var(--hair);padding-top:.5rem}
+  sup.ref{
+    font-size:.62em;
+    color:var(--accent);
+    font-weight:600;
+    padding-left:.05em;
+  }
+  .marginnote{
+    float:right;clear:right;width:15rem;margin-right:-19rem;
+    margin-top:.1rem;margin-bottom:.8rem;
+    font-size:.74rem;line-height:1.3;color:var(--accent);
+    font-variant:small-caps;letter-spacing:.04em;text-align:left;
+  }
+  @media (max-width:1080px){
+    .sidenote,.marginnote{
+      float:none;width:100%;margin:0 0 1rem;
+      padding:.7rem .9rem;background:#f6f3ea;
+      border-left:2px solid var(--rule);font-size:.82rem;
+    }
+    .marginnote{background:transparent;border-left-color:var(--accent)}
+  }
+
+  /* ---------- tables ---------- */
+  figure{margin:2rem 0}
+  figure.table-fig{margin:1.6rem 0}
+  table{
+    border-collapse:collapse;
+    width:100%;
+    font-size:.82rem;
+    font-variant-numeric:tabular-nums lining-nums;
+  }
+  caption{
+    caption-side:top;
+    text-align:left;
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    font-size:.78rem;
+    color:var(--accent);
+    padding-bottom:.45rem;
+    font-weight:600;
+  }
+  caption .cap-note{
+    font-variant:normal;letter-spacing:0;text-transform:none;
+    color:var(--muted);font-weight:400;font-style:italic;
+  }
+  th,td{
+    padding:.32rem .6rem .32rem 0;
+    text-align:right;
+    border:0;
+  }
+  th:first-child,td:first-child{text-align:left}
+  thead th{
+    border-top:1px solid var(--ink);
+    border-bottom:1px solid var(--ink);
+    font-weight:500;
+    font-variant:small-caps;
+    letter-spacing:.04em;
+    font-size:.76rem;
+    color:#2a2a26;
+  }
+  tbody tr:last-child td{border-bottom:1px solid var(--ink)}
+  tbody td{border-bottom:1px solid var(--hair)}
+  tbody tr:hover td{background:#f7f4ea}
+  td.neg{color:var(--accent)}
+  td.pos{color:var(--blue)}
+  .tnum{font-family:var(--mono);font-size:.9em}
+  .figcaption{
+    font-size:.78rem;
+    line-height:1.4;
+    color:var(--muted);
+    margin-top:.5rem;
+    text-align:left;
+  }
+  .figcaption b{
+    font-variant:small-caps;
+    letter-spacing:.05em;
+    color:var(--ink);
+    font-weight:600;
+    margin-right:.3em;
+  }
+  .figure svg{display:block;width:100%;height:auto;overflow:visible}
+  .figure svg text{font-family:var(--serif)}
+  .wide{margin-right:-19rem}
+  @media (max-width:1080px){.wide{margin-right:0}}
+
+  /* ---------- math / inline emphasis ---------- */
+  .formula{
+    font-family:var(--mono);
+    font-size:.82rem;
+    background:#f6f3ea;
+    padding:.35rem .6rem;
+    display:inline-block;
+    margin:.2rem 0;
+  }
+  dl.defs{margin:.4rem 0 1rem;font-size:.9rem}
+  dl.defs dt{font-style:italic;margin-top:.5rem}
+  dl.defs dd{margin:.05rem 0 0 1.2rem;color:#3a3a34}
+
+  /* ---------- code ---------- */
+  pre{
+    font-family:var(--mono);
+    font-size:.74rem;
+    line-height:1.55;
+    background:#f6f3ea;
+    border-left:2px solid var(--rule);
+    padding:.8rem 1rem;
+    overflow-x:auto;
+    margin:.6rem 0 1.4rem;
+  }
+  pre code{background:none;padding:0;font-size:1em}
+
+  ol.numbered{counter-reset:item;list-style:none;padding-left:0}
+  ol.numbered>li{
+    counter-increment:item;
+    position:relative;
+    padding-left:2.2rem;
+    margin-bottom:.9rem;
+  }
+  ol.numbered>li::before{
+    content:counter(item);
+    position:absolute;left:0;top:.05rem;
+    font-size:1.5rem;
+    font-weight:500;
+    color:var(--accent);
+    line-height:1;
+  }
+  ul.tight{margin:.3rem 0 1rem;padding-left:1.1rem}
+  ul.tight li{margin-bottom:.35rem}
+
+  /* ---------- headline grid ---------- */
+  .headline-strip{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:0 2.2rem;
+    margin:1.4rem 0 .4rem;
+  }
+  .headline-strip .hl{
+    border-top:1px solid var(--rule);
+    padding:.6rem 0 .65rem;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:1rem;
+  }
+  .headline-strip .hl span:first-child{font-size:.86rem;color:#33322d}
+  .headline-strip .hl span:last-child{
+    font-family:var(--mono);
+    font-size:.9rem;
+    white-space:nowrap;
+  }
+  @media (max-width:700px){.headline-strip{grid-template-columns:1fr}}
+
+  /* ---------- toc ---------- */
+  nav.toc{
+    margin:2.4rem 0 0;
+    border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+    padding:1rem 0;
+    columns:2;
+    column-gap:2.5rem;
+    font-size:.84rem;
+  }
+  nav.toc h4{margin:0 0 .5rem;column-span:all}
+  nav.toc a{display:block;padding:.12rem 0;border:0;color:#33322d}
+  nav.toc a:hover{color:var(--accent)}
+  nav.toc a .n{
+    font-family:var(--mono);
+    font-size:.72rem;
+    color:var(--faint);
+    margin-right:.5rem;
+  }
+
+  hr.end{
+    border:0;border-top:1px solid var(--rule);
+    width:8rem;margin:4rem 0 1.2rem;
+  }
+  footer.colophon{
+    width:var(--measure);
+    margin-left:6rem;
+    font-size:.76rem;
+    color:var(--muted);
+    line-height:1.5;
+  }
+  @media (max-width:1080px){footer.colophon{margin-left:0}}
+
+  /* running head */
+  .runhead{
+    position:sticky;top:0;z-index:20;
+    background:color-mix(in srgb,var(--paper) 92%,transparent);
+    backdrop-filter:blur(4px);
+    border-bottom:1px solid var(--hair);
+    font-variant:small-caps;
+    letter-spacing:.1em;
+    font-size:.7rem;
+    color:var(--muted);
+    padding:.5rem 0;
+    display:flex;justify-content:space-between;
+  }
+  .runhead .l{max-width:60%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+
+  @media print{
+    body{font-size:11pt;background:#fff}
+    .runhead,nav.toc{display:none}
+    .wrap{padding:0}
+    .col,header.masthead,footer.colophon{margin-left:0;width:100%;max-width:none}
+    .sidenote,.marginnote{float:none;width:100%;margin:0 0 .6rem;background:none;font-size:9pt}
+    h2{page-break-after:avoid}
+    figure{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<div class="runhead wrap">
+  <span class="l">Breakout, Confluence and Regime Study</span>
+  <span>BTCUSDT · 2025–2026 · quant-lab</span>
+</div>
+
+<header class="masthead">
+  <div class="kicker">
+    <span>Quant-Lab Research Note</span>
+    <span class="dot">·</span>
+    <span>Empirical Asset Behaviour</span>
+    <span class="dot">·</span>
+    <span class="status">Status: complete</span>
+  </div>
+  <h1 class="title">Breakout, Confluence <em>&amp;</em> Regime</h1>
+  <p class="subtitle">Does a volatility-band breakout on BTCUSDT have an edge — and can it be recovered with confluence filters or a market-regime gate? A negative result, reported in full.</p>
+  <div class="byline">
+    <span>Instrument — BTCUSDT</span>
+    <span>Binance USD-M perpetual &amp; spot</span>
+    <span>2025-01-01 → 2026-08-31</span>
+    <span>quant-lab research</span>
+  </div>
+</header>
+
+<div class="col">
+
+  <!-- ===================== ABSTRACT ===================== -->
+  <section class="abstract" id="abstract">
+    <h2 style="border:0;margin-top:1.6rem;padding-top:0"><span class="num">Abstract</span>Executive summary</h2>
+
+    <p class="lead"><strong>Question.</strong> Does a volatility/band breakout on BTCUSDT have an edge, and can that edge be recovered with (a) confluence filters or (b) a market-regime gate?</p>
+
+    <p><strong>Answer.</strong> No. The base breakout trigger has no durable edge, and neither confluence filters nor a regime gate produced a robust, statistically significant improvement. The one apparently strong result — breakouts in an “up-trend, high-volatility” regime looked much better in 2026 — <strong>failed to replicate on 2025</strong>, where the best regime was in fact a <em>down</em> regime. Regime gating reduced losses substantially, but that was almost entirely a reduction in trade count and fees, not a discovered edge. Even gated, the strategy lost money in both 2025 and 2026.</p>
+
+    <aside class="sidenote">
+      <span class="sn">※</span>This is a <strong>negative result</strong>. It is reported in full because the negative result is the deliverable: it prevents further effort on a dead trigger family.
+    </aside>
+
+    <div class="verdict">
+      <span class="label">Headline finding</span>
+      <p>The hypothesis that a breakout trigger plus confluence or a regime gate yields a durable BTCUSDT edge is <strong>not supported</strong> by 2025–2026 data. Timeframe is the only robust lever.</p>
+    </div>
+
+    <h4>Headline numbers</h4>
+    <div class="headline-strip">
+      <div class="hl"><span>1m Bollinger breakout, “good” outcome rate</span><span>~5%</span></div>
+      <div class="hl"><span>15m, same definition</span><span>~18–20%</span></div>
+      <div class="hl"><span>1h, same definition</span><span>~32–36%</span></div>
+      <div class="hl"><span>Best confluence filter (15m), out-of-sample lift</span><span class="neg">1.23× <span class="small">(n.s.)</span></span></div>
+      <div class="hl"><span><code>up_highvol</code> regime, 2026</span><span class="pos">35.0% <span class="small">vs 17.8%</span></span></div>
+      <div class="hl"><span><code>up_highvol</code> regime, 2025</span><span>19.8% <span class="small">vs 18.8%</span></span></div>
+      <div class="hl"><span>Gated vs ungated backtest, 2025</span><span class="neg">−25.4% vs −78.5%</span></div>
+      <div class="hl"><span>Gated vs ungated backtest, 2026</span><span class="neg">−7.0% vs −58.0%</span></div>
+    </div>
+
+    <nav class="toc">
+      <h4>Contents</h4>
+      <a href="#q"><span class="n">1</span>Research question and thesis</a>
+      <a href="#data"><span class="n">2</span>Data</a>
+      <a href="#method"><span class="n">3</span>Methodology</a>
+      <a href="#results"><span class="n">4</span>Results</a>
+      <a href="#why"><span class="n">5</span>Interpretation — why it fails</a>
+      <a href="#limits"><span class="n">6</span>Limitations</a>
+      <a href="#conclusion"><span class="n">7</span>Conclusion</a>
+      <a href="#repro"><span class="n">8</span>Reproducibility</a>
+    </nav>
+  </section>
+
+  <!-- ===================== 1 ===================== -->
+  <section id="q">
+    <h2><span class="num">§ 1</span>Research question and thesis</h2>
+    <p>The lab’s reference strategy is a volatility/band breakout: price crosses above a volatility band on expanding volume. The working hypothesis was:</p>
+    <blockquote class="epigraph">
+      H1. Raw breakouts are noise, but a <em>confluence</em> of conditions — volume, order-flow, trend, volatility regime, derivatives — selects the subset that trends.
+      <cite>Working hypothesis</cite>
+    </blockquote>
+    <p>A second hypothesis followed from the data:</p>
+    <blockquote class="epigraph">
+      H2. The edge is <em>regime-dependent</em> — breakouts work in trending/expanding regimes and fail in range/contraction regimes. A regime classifier should therefore separate signal from noise.
+      <cite>Follow-on hypothesis</cite>
+    </blockquote>
+    <p>Both were tested on a design period and a separate validation period, with a pre-registered outcome definition, and H2 was additionally stress-tested by replicating 2026 on 2025.</p>
+  </section>
+
+  <!-- ===================== 2 ===================== -->
+  <section id="data">
+    <h2><span class="num">§ 2</span>Data</h2>
+
+    <h3>2.1&ensp;Sources and coverage</h3>
+    <p>All data from Binance Public Data bulk archives (<code>data.binance.vision</code>), via a resumable, checksum-verified downloader (<code>quant_lab.data.sources.binance</code>).</p>
+
+    <figure class="table-fig">
+      <table>
+        <caption>Table 1 — Dataset coverage <span class="cap-note">Binance bulk archives, USD-M futures and spot</span></caption>
+        <thead>
+          <tr><th>dataset</th><th>market</th><th>2025 rows</th><th>2026 Jan–Aug rows</th><th>notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>bars 1m</td><td>futures</td><td>525,600</td><td>349,920</td><td>OHLCV + taker-buy volume</td></tr>
+          <tr><td>bars 1m</td><td>spot</td><td>525,600</td><td>349,920</td><td>for spot–perp basis</td></tr>
+          <tr><td>funding</td><td>futures</td><td>1,095</td><td>729</td><td>8-hourly</td></tr>
+          <tr><td>open interest</td><td>futures</td><td>105,117</td><td>69,984</td><td>5-minute, derived from daily metrics</td></tr>
+        </tbody>
+      </table>
+    </figure>
+
+    <p>Ranges: 2025-01-01 → 2025-12-31 and 2026-01-01 → 2026-08-31. Also present: BTCUSDT/ETHUSDT futures 2024-01..03, and 2024-01/02 funding plus five days of OI.</p>
+
+    <h3>2.2&ensp;Storage and validation</h3>
+    <p>Canonical schemas (<code>quant_lab.data.schemas</code>), Parquet partitioned by <code>exchange/market_type/dataset/symbol/timeframe/year/month.parquet</code>, queried via DuckDB. Validation (<code>quant_lab.data.validate</code>) checks missing, duplicate and non-monotonic timestamps, invalid prices and quantities, gaps, outliers and timezone consistency.</p>
+
+    <aside class="sidenote">
+      <span class="sn">1</span>All datasets used here passed with <strong>0 errors and 0 warnings</strong>. No data was fabricated or silently repaired.
+    </aside>
+    <p>Every dataset used here passed validation cleanly. No data was fabricated or silently repaired.</p>
+
+    <h3>2.3&ensp;Known data caveats</h3>
+    <aside class="sidenote">
+      <span class="sn">2</span>Liquidations are unavailable from any reliable bulk historical source and were not used. Trade-level <code>trades</code>/<code>aggTrades</code> were not downloaded: 1m bars already carry volume, quote volume and taker-buy volume, sufficient for the flow features used. Tick data would be needed only for sub-minute order-flow or execution-realism work.
+    </aside>
+    <ul class="tight">
+      <li>Monthly archives cover whole calendar months; query-time filtering bounds use.</li>
+      <li>Funding timestamps carry ~1–15 ms jitter; truncated to the minute for joins.<sup class="ref">2</sup></li>
+      <li><code>open_interest</code> is derived from the daily <code>metrics</code> archive (5-minute grid).</li>
+      <li>Liquidations are unavailable and were not used.</li>
+      <li>Trade-level data was not downloaded; 1m bars suffice for the flow features used.</li>
+    </ul>
+  </section>
+
+  <!-- ===================== 3 ===================== -->
+  <section id="method">
+    <h2><span class="num">§ 3</span>Methodology</h2>
+
+    <h3>3.1&ensp;Triggers tested</h3>
+    <figure class="table-fig">
+      <table>
+        <caption>Table 2 — Breakout trigger definitions <span class="cap-note">long-only by default; trailing (causal) windows only</span></caption>
+        <thead><tr><th>strategy</th><th>definition</th><th>params (defaults)</th></tr></thead>
+        <tbody>
+          <tr><td><code>bollinger_breakout</code></td><td>close crosses above upper Bollinger band; exit close &lt; mid</td><td>window 20, 2σ</td></tr>
+          <tr><td><code>volatility_breakout</code></td><td>close &gt; EMA and |Δclose| &gt; k·ATR and volume &gt; m·mean(volume)</td><td>EMA 100, ATR 14, k 1.5, m 1.5</td></tr>
+          <tr><td><code>squeeze_release</code></td><td>Bollinger cross only after a compressed-bandwidth squeeze, with bandwidth expanding</td><td>window 20, squeeze z ≤ −0.5, lookback 96</td></tr>
+          <tr><td><code>range_breakout_hold</code></td><td>close above prior N-bar high and holds for M consecutive closes</td><td>lookback 60, hold 2, exit 30</td></tr>
+        </tbody>
+      </table>
+    </figure>
+    <p>All strategies are long-only by default, use trailing (causal) windows only, and are validated for causality by tests that assert signal and feature values do not change when future bars are appended.</p>
+
+    <h3>3.2&ensp;Execution assumptions</h3>
+    <p>Recorded with every run; defaults are non-zero.</p>
+    <figure class="table-fig">
+      <table>
+        <caption>Table 3 — Execution assumptions <span class="cap-note">signal at bar <em>t</em> close → fill at bar <em>t</em>+1 open</span></caption>
+        <thead><tr><th>assumption</th><th>value</th></tr></thead>
+        <tbody>
+          <tr><td>initial capital</td><td>100,000</td></tr>
+          <tr><td>fees (per side)</td><td>0.0004</td></tr>
+          <tr><td>slippage (per side)</td><td>0.0002</td></tr>
+          <tr><td>position size</td><td>100% of equity</td></tr>
+          <tr><td>leverage</td><td>1×</td></tr>
+          <tr><td>execution delay</td><td>1 bar</td></tr>
+          <tr><td>timing</td><td>signal at close <em>t</em> → fill at open <em>t</em>+1</td></tr>
+        </tbody>
+      </table>
+    </figure>
+    <aside class="sidenote">
+      <span class="sn">3</span>Higher timeframes are produced by canonical OHLCV resampling of 1m bars — open=first, high=max, low=min, close=last, volumes summed, bucket labelled by its <strong>open</strong> time; partial trailing buckets dropped. Funding and OI are as-of joined (backward) and forward-filled; spot resampled identically.
+    </aside>
+
+    <h3>3.3&ensp;Outcome measures</h3>
+    <p>For every signal, the forward path is measured from the <strong>close of the signal bar</strong> over a 7-day horizon:</p>
+    <dl class="defs">
+      <dt>time to reversion</dt><dd>first bar whose <em>close</em> returns to the signal price (a stricter “touch” variant using the bar low was also computed).</dd>
+      <dt>excursion to reversion</dt><dd>the maximum favourable price move (highest high for longs) between the signal and the reversion bar.</dd>
+      <dt>good outcome (label)</dt><dd><span class="formula">excursion ≥ X &amp;&amp; time_to_reversion &gt; 1h</span>, at X = 0.25% (1m study) and X = 0.5% (main study). A “never reverted” signal counts as slow.</dd>
+    </dl>
+    <p>Reversion and excursion are also reported as a cumulative reversion curve and a bucketed excursion table (disjoint reversion-speed buckets).</p>
+
+    <h3>3.4&ensp;Confluence filters</h3>
+    <p>Each filter is a single explicit boolean condition evaluated at the signal bar (no model): <code>volume ≥ 1.5×mean</code>, <code>taker_buy/volume ≥ 0.55</code>, 20-bar CVD &gt; 0, <code>close &gt; EMA200</code>, strong close (close in top 30% of bar range), bandwidth z ≤ −0.5, spot–perp basis &gt; 0, funding ≤ 0, OI 1h change &gt; 0. Combinations are greedy ANDs of the best standalone filters on the design period.</p>
+
+    <h3>3.5&ensp;Regime classifier</h3>
+    <p>A <strong>causal</strong> classifier (<code>quant_lab.analytics.regimes</code>), computed on a 1h regime timeframe from trailing statistics only:</p>
+    <ul class="tight">
+      <li><strong>trend</strong> — <code>up</code>/<code>down</code>/<code>range</code> from a volatility-normalised trailing move: the 24h log return divided by <span class="formula">realized_vol × √24</span>, threshold ±1.0.</li>
+      <li><strong>volatility</strong> — <code>highvol</code>/<code>lowvol</code> from realized vol vs its trailing median.</li>
+      <li>combined label <code>{trend}_{vol}</code> (e.g. <code>up_highvol</code>), <strong>shifted one regime bar</strong> so a signal only ever sees regimes that had already closed.</li>
+    </ul>
+
+    <h3>3.6&ensp;Evaluation protocol</h3>
+    <ul class="tight">
+      <li><strong>Design / validation split.</strong> Filters and the regime hypothesis were chosen on a design window and reported on a disjoint validation window. The final test used design = 2025 and validation = 2026 Jan–Aug.</li>
+      <li><strong>Baseline and lift.</strong> For each filter, <span class="formula">lift = P(good | filter) / P(good | baseline)</span>.</li>
+      <li><strong>Significance.</strong> Two-proportion z-test of the filtered rate against the baseline rate (2-sided p-value) — essential because the base rate is low and samples are small.</li>
+      <li><strong>Multiple testing.</strong> Many filters × periods were tested; interpreted with that in mind. No correction is claimed, so only large, replicated effects would be credible.</li>
+    </ul>
+  </section>
+
+  <!-- ===================== 4 ===================== -->
+  <section id="results">
+    <h2><span class="num">§ 4</span>Results</h2>
+
+    <h3>4.1&ensp;Phase 1 — Reversion and excursion at 1m</h3>
+    <p>2,492 Bollinger breakout signals, 1m, close-basis reversion, 7-day horizon. Median time to reversion was <strong>1 bar</strong> (1 min), mean 51.2 min, p75 4 min; 21 signals (0.8%) never reverted within 7 days.</p>
+
+    <figure class="figure">
+      <div id="fig-cdf"></div>
+      <p class="figcaption"><b>Figure 1.</b> Cumulative fraction of 1m breakout signals that have reverted by each horizon. More than half revert within a single minute; 99.2% within seven days.</p>
+    </figure>
+
+    <figure class="table-fig">
+      <table>
+        <caption>Table 4 — Excursion before reversion, by reversion-speed bucket <span class="cap-note">value in USDT</span></caption>
+        <thead><tr><th>bucket</th><th>n</th><th>mean</th><th>median</th><th>min</th><th>max</th><th>mean %</th></tr></thead>
+        <tbody>
+          <tr><td>≤1m</td><td>1,390</td><td>10.4</td><td>2.8</td><td>0.0</td><td>384.9</td><td>0.015%</td></tr>
+          <tr><td>1m–5m</td><td>532</td><td>43.9</td><td>34.1</td><td>0.1</td><td>460.9</td><td>0.066%</td></tr>
+          <tr><td>5m–15m</td><td>216</td><td>98.6</td><td>70.3</td><td>2.9</td><td>1,409.5</td><td>0.143%</td></tr>
+          <tr><td>15m–1h</td><td>178</td><td>201.6</td><td>161.6</td><td>9.2</td><td>979.3</td><td>0.300%</td></tr>
+          <tr><td>1h–4h</td><td>88</td><td>384.7</td><td>311.9</td><td>52.6</td><td>2,171.4</td><td>0.564%</td></tr>
+          <tr><td>4h–1d</td><td>42</td><td>702.1</td><td>567.5</td><td>129.3</td><td>2,404.7</td><td>1.048%</td></tr>
+          <tr><td>1d–7d</td><td>25</td><td>1,997.6</td><td>1,831.5</td><td>607.7</td><td>4,299.7</td><td>2.955%</td></tr>
+          <tr><td>not reverted</td><td>21</td><td>9,748.8</td><td>9,343.2</td><td>1,952.0</td><td>16,947.6</td><td>14.871%</td></tr>
+        </tbody>
+      </table>
+    </figure>
+
+    <figure class="figure">
+      <div id="fig-exc"></div>
+      <p class="figcaption"><b>Figure 2.</b> Mean excursion (percent, log scale) by reversion-speed bucket. Excursion and reversion time are mechanically linked — only signals that keep running stay out of reversion. The raw 1m trigger is essentially microstructure noise.</p>
+    </figure>
+
+    <h3>4.2&ensp;Phase 2 — Confluence at 1m</h3>
+    <p>Design = July, validate = August, 0.25% label. Baseline P(good): <strong>6.28%</strong> design, <strong>6.16%</strong> validate.</p>
+    <figure class="figure">
+      <div id="fig-conf1m"></div>
+      <p class="figcaption"><b>Figure 3.</b> Out-of-sample lift of each 1m confluence filter. No filter was significant; <code>volume</code> flipped sign between periods.</p>
+    </figure>
+    <aside class="sidenote">
+      <span class="sn">4</span>The greedy combination (design) selected <code>oi_change</code> first, which then reversed in validation — a clean demonstration of selection overfitting. <code>basis &gt; 0</code> had no signals in design and <code>funding ≤ 0</code> only <em>n</em>=12 there.
+    </aside>
+
+    <h3>4.3&ensp;Phase 3 — Higher timeframes</h3>
+    <p>Jul/Aug split, 0.5% label. The base rate rises roughly 4× (15m) to 6× (1h) versus 1m — but signal counts collapse and <code>range_breakout_hold</code> is too restrictive to evaluate. No filter was significant at any timeframe.</p>
+    <figure class="figure">
+      <div id="fig-tf"></div>
+      <p class="figcaption"><b>Figure 4.</b> P(good) by trigger and timeframe, design (open) vs validate (filled). Timeframe is the only lever that moves the base rate consistently.</p>
+    </figure>
+
+    <h3>4.4&ensp;Phase 4 — Full 2026, design Jan–Jul / validate Aug</h3>
+    <div class="table-fig">
+    <figure>
+      <table>
+        <caption>Table 5 — Full-2026 confluence, 0.5% label</caption>
+        <thead><tr><th>trigger</th><th>tf</th><th>baseline design</th><th>baseline validate</th><th>best filter (design / validate lift)</th></tr></thead>
+        <tbody>
+          <tr><td>bollinger</td><td>1m</td><td>5.0% (n=8,304)</td><td>5.0% (n=1,234)</td><td>none &gt; 1.11, n.s.</td></tr>
+          <tr><td>bollinger</td><td>15m</td><td>17.7% (n=566)</td><td>19.5% (n=82)</td><td>volume+EMA200: 1.19 / <strong>1.23</strong> (z=0.59)</td></tr>
+          <tr><td>bollinger</td><td>1h</td><td>35.5% (n=138)</td><td>32.1% (n=28)</td><td>none (all ≈1.0 or below)</td></tr>
+          <tr><td>squeeze_release</td><td>15m</td><td>18.1% (n=507)</td><td>21.9% (n=64)</td><td>volume+EMA200: 1.17 validate</td></tr>
+          <tr><td>squeeze_release</td><td>1h</td><td>36.2% (n=116)</td><td>29.4% (n=17)</td><td>none; OI negative</td></tr>
+        </tbody>
+      </table>
+    </figure>
+    </div>
+    <p>At 15m, two filters were positive in <strong>both</strong> windows: <code>volume ≥ 1.5×</code> (1.13/1.14) and <code>close &gt; EMA200</code> (1.11/1.15); their combination gave 1.19/1.23 — the first directionally consistent signal, though not significant. Adding <code>oi_change_1h</code> produced a large validation lift (2.05, n=20, z=1.94) but its design lift was only ~1.06 — treated as regime-specific, not real. At 1h no filter helped; breakouts there are already good about a third of the time.</p>
+
+    <h3>4.5&ensp;Phase 5 — Regime classifier, 2026</h3>
+    <p>Baseline: 17.7% design (Jan–Jul), 19.5% validate (Aug). <code>up_highvol</code> was the best regime in both windows, and down-regimes were worst. At this point H2 looked supported — pending the 2025 replication.</p>
+    <figure class="table-fig">
+      <table>
+        <caption>Table 6 — P(good) by regime, 2026 <span class="cap-note">design Jan–Jul / validate Aug</span></caption>
+        <thead><tr><th>regime</th><th>design n</th><th>design P(good)</th><th>validate n</th><th>validate P(good)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>up_highvol</strong></td><td>46</td><td><strong>23.9%</strong></td><td>16</td><td class="pos"><strong>62.5%</strong></td></tr>
+          <tr><td>up_lowvol</td><td>55</td><td>16.4%</td><td>3</td><td>0.0%</td></tr>
+          <tr><td>range_highvol</td><td>168</td><td>18.5%</td><td>22</td><td>13.6%</td></tr>
+          <tr><td>range_lowvol</td><td>212</td><td>17.5%</td><td>14</td><td>7.1%</td></tr>
+          <tr><td>down_lowvol</td><td>36</td><td>11.1%</td><td>—</td><td>—</td></tr>
+          <tr><td>down_highvol</td><td>24</td><td>12.5%</td><td>4</td><td>0.0%</td></tr>
+        </tbody>
+      </table>
+    </figure>
+
+    <h3>4.6&ensp;Phase 6 — 2025 replication</h3>
+    <p>Baseline: 18.8% (2025), 17.8% (2026 Jan–Aug).</p>
+    <figure class="figure wide">
+      <div id="fig-regime"></div>
+      <p class="figcaption"><b>Figure 5.</b> Regime performance across the two years. <strong>H2 is refuted.</strong> In 2025 <code>up_highvol</code> (19.8%) is indistinguishable from the 18.8% baseline and is not the best regime — <code>down_highvol</code> (24.6%) is. The strong 2026 <code>up_highvol</code> effect did not replicate.</p>
+    </figure>
+    <figure class="table-fig">
+      <table>
+        <caption>Table 7 — Regime performance, 2025 vs 2026 <span class="cap-note">design = 2025, validation = 2026</span></caption>
+        <thead><tr><th>regime</th><th>2025 n</th><th>2025 P(good)</th><th>2026 n</th><th>2026 P(good)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>up_highvol</strong></td><td>81</td><td><strong>19.8%</strong></td><td>60</td><td class="pos"><strong>35.0%</strong></td></tr>
+          <tr><td>up_lowvol</td><td>80</td><td>15.0%</td><td>62</td><td>14.5%</td></tr>
+          <tr><td>range_highvol</td><td>282</td><td>21.6%</td><td>186</td><td>17.7%</td></tr>
+          <tr><td>range_lowvol</td><td>400</td><td>17.2%</td><td>250</td><td>16.4%</td></tr>
+          <tr><td><strong>down_highvol</strong></td><td>57</td><td class="neg"><strong>24.6%</strong></td><td>27</td><td>11.1%</td></tr>
+          <tr><td>down_lowvol</td><td>41</td><td>12.2%</td><td>39</td><td>10.3%</td></tr>
+        </tbody>
+      </table>
+    </figure>
+
+    <h4>Regime-gated backtest</h4>
+    <p>Gate = <code>up_highvol</code> + <code>up_lowvol</code>.</p>
+    <figure class="figure">
+      <div id="fig-bt"></div>
+      <p class="figcaption"><b>Figure 6.</b> Total return, gated vs ungated. Gating cut losses sharply, but trade count fell 5–6× and fees fell correspondingly — the improvement is <em>fee/turnover avoidance</em>, not recovered edge. Both gated variants still lose money with profit factor below 1.</p>
+    </figure>
+    <figure class="table-fig">
+      <table>
+        <caption>Table 8 — Gated vs ungated backtest</caption>
+        <thead><tr><th>period</th><th>variant</th><th>trades</th><th>total return</th><th>max DD</th><th>Sharpe</th><th>win</th><th>PF</th><th>fees</th></tr></thead>
+        <tbody>
+          <tr><td>2025</td><td>ungated</td><td>619</td><td class="neg">−78.5%</td><td>−79.3%</td><td>−4.29</td><td>27.8%</td><td>0.68</td><td>34,189</td></tr>
+          <tr><td>2025</td><td>gated</td><td>107</td><td class="neg">−25.4%</td><td>−26.4%</td><td>−3.11</td><td>23.4%</td><td>0.46</td><td>7,363</td></tr>
+          <tr><td>2026</td><td>ungated</td><td>417</td><td class="neg">−58.0%</td><td>−62.6%</td><td>−5.28</td><td>25.2%</td><td>0.56</td><td>23,008</td></tr>
+          <tr><td>2026</td><td>gated</td><td>79</td><td class="neg">−7.0%</td><td>−19.2%</td><td>−0.87</td><td>29.1%</td><td>0.86</td><td>6,116</td></tr>
+        </tbody>
+      </table>
+    </figure>
+  </section>
+
+  <!-- ===================== 5 ===================== -->
+  <section id="why">
+    <h2><span class="num">§ 5</span>Interpretation — why it fails</h2>
+    <ol class="numbered">
+      <li><strong>The trigger has no edge.</strong> A band/volatility cross fires on a large fraction of bars and, at 1m, is dominated by microstructure; at 15m/1h it is better but still a coin-flip biased toward fast reversion.</li>
+      <li><strong>The “good” outcome and PnL diverge.</strong> “Excursion ≥ 0.5% before reversion” is not a profit measure: the strategy exits at the mid-band, pays fees on both sides, and gives back the excursion. A signal can be labelled good and still lose money.</li>
+      <li><strong>Regime effects are not stable.</strong> The apparently strong 2026 <code>up_highvol</code> result is a single-sample artifact; 2025 contradicts it. With ~60–80 signals per regime-year, confidence intervals are wide enough to manufacture such effects by chance.</li>
+      <li><strong>Low base rates destroy statistical power.</strong> At 1m the good rate is ~5% with thousands of signals; at 1h it is ~⅓ with only ~25/month. There is no window where both the effect size and the sample are large enough to prove a modest (1.2–1.3×) lift.</li>
+      <li><strong>Gating’s apparent benefit is a turnover effect.</strong> Fewer trades → fewer fees → smaller losses. That is risk reduction, not alpha.</li>
+    </ol>
+  </section>
+
+  <!-- ===================== 6 ===================== -->
+  <section id="limits">
+    <h2><span class="num">§ 6</span>Limitations</h2>
+    <ul class="tight">
+      <li><strong>Single instrument</strong> (BTCUSDT). No cross-sectional validation.</li>
+      <li><strong>Two calendar blocks</strong> (2025, 2026 Jan–Aug) with different regime mixes; neither is a large sample at higher timeframes.</li>
+      <li><strong>Multiple comparisons.</strong> Many filters × timeframes × periods were tested; no formal correction applied. Any single small lift should be discounted.</li>
+      <li><strong>Outcome definition is a proxy.</strong> The <code>good</code> label is path-based, not PnL-based; it ignores the exit rule, funding and slippage on exits.</li>
+      <li><strong>Backtest simplifications.</strong> Bar-based fills, fixed per-side slippage, intrabar stop/target ambiguity handled by an explicit policy, no order-book or latency modelling, funding applied as a periodic drag.</li>
+      <li><strong>Regime thresholds are hand-set</strong> (24h trend z, ±1.0; vol vs trailing median) and were not themselves optimised or cross-validated.</li>
+      <li><strong>Derivatives history is short</strong> relative to bars; OI/funding filters were regime-dependent and sometimes empty (e.g. no non-positive funding in Aug 2026; no positive basis in Jul 2026).</li>
+    </ul>
+  </section>
+
+  <!-- ===================== 7 ===================== -->
+  <section id="conclusion">
+    <h2><span class="num">§ 7</span>Conclusion</h2>
+    <p>The hypothesis that a breakout trigger plus confluence or a regime gate yields a durable BTCUSDT edge is <strong>not supported</strong> by 2025–2026 data.</p>
+    <ul class="tight">
+      <li><strong>Timeframe is the only robust lever:</strong> it raises the “good” base rate from ~5% (1m) to ~18–20% (15m) to ~32–36% (1h), consistently.</li>
+      <li><strong>No confluence filter reached significance</strong> at any timeframe; the best candidate (<code>volume + EMA200</code> at 15m) was directionally consistent but weak (1.23× out-of-sample, z≈0.6).</li>
+      <li><strong>The regime hypothesis failed out-of-sample:</strong> <code>up_highvol</code> was special only in 2026; in 2025 a down regime was best.</li>
+      <li><strong>Regime gating reduced losses mainly by cutting turnover;</strong> it did not make the strategy profitable.</li>
+    </ul>
+    <div class="verdict">
+      <span class="label">Recommendation</span>
+      <p>Stop refining this trigger family. If research continues, change the <em>source of edge</em> rather than the filters — e.g. funding/basis carry, cross-sectional relative strength across a universe of perps, or a mean-reversion trigger with a proper risk model — and design the study around a <strong>PnL-based objective</strong> with enough sample to detect the effect size of interest.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 8 ===================== -->
+  <section id="repro">
+    <h2><span class="num">§ 8</span>Reproducibility</h2>
+
+    <h4>Data</h4>
+<pre><code>quantlab data build binance --market futures --symbol BTCUSDT --interval 1m \
+    --start 2025-01-01 --end 2026-01-01
+quantlab data build binance --market futures --symbol BTCUSDT --dataset funding \
+    --start 2025-01-01 --end 2026-01-01
+quantlab data build binance --market futures --symbol BTCUSDT --dataset open_interest \
+    --start 2025-01-01 --end 2026-01-01
+quantlab data build binance --market spot --symbol BTCUSDT --interval 1m \
+    --start 2025-01-01 --end 2026-01-01
+# (repeat for 2026-01-01 → 2026-09-01)
+quantlab data validate --symbol BTCUSDT --dataset bars --interval 1m</code></pre>
+
+    <h4>Reversion / excursion study</h4>
+<pre><code>quantlab analyze excursions --strategy bollinger_breakout --symbol BTCUSDT \
+    --timeframe 1m --start 2026-07-01 --end 2026-09-01 \
+    --reversion-only --horizon-days 7 --reversion-basis close \
+    --out experiments/reports/bb_reversion_only</code></pre>
+
+    <h4>Confluence and regime evaluation</h4>
+<pre><code>quantlab analyze confluence --strategy bollinger_breakout --symbol BTCUSDT \
+    --timeframe 15m --source-timeframe 1m \
+    --start 2025-01-01 --end 2026-01-01 \
+    --validate-start 2026-01-01 --validate-end 2026-09-01 \
+    --excursion-pct 0.005 --min-reversion-hours 1 --horizon-days 7 \
+    --by-regime --regime-timeframe 1h \
+    --out experiments/reports/regime_2025_2026</code></pre>
+
+    <h4>Regime-gated backtest</h4>
+<pre><code>quantlab analyze regime-backtest --strategy bollinger_breakout --symbol BTCUSDT \
+    --timeframe 15m --start 2025-01-01 --end 2026-01-01 \
+    --allow-regimes up_highvol,up_lowvol \
+    --out experiments/reports/regime_bt_2025</code></pre>
+
+    <h4>Key artifacts</h4>
+    <figure class="table-fig">
+      <table>
+        <thead><tr><th>path</th><th>contents</th></tr></thead>
+        <tbody>
+          <tr><td><code>experiments/reports/bb_reversion_only/</code></td><td>reversion CDF, excursion-by-bucket, per-signal events</td></tr>
+          <tr><td><code>experiments/reports/confluence_bb/</code></td><td>1m confluence tables (design/validate)</td></tr>
+          <tr><td><code>experiments/reports/cf2_*/</code></td><td>full-2026 confluence by trigger/timeframe</td></tr>
+          <tr><td><code>experiments/reports/regime_bb_15m/</code></td><td>2026 regime tables</td></tr>
+          <tr><td><code>experiments/reports/regime_2025_2026/</code></td><td>2025 vs 2026 regime tables</td></tr>
+          <tr><td><code>experiments/reports/regime_bt_2025/</code>, <code>regime_bt_2026/</code></td><td>gated vs ungated metrics</td></tr>
+        </tbody>
+      </table>
+    </figure>
+
+    <h4>Code map</h4>
+    <figure class="table-fig">
+      <table>
+        <thead><tr><th>module</th><th>responsibility</th></tr></thead>
+        <tbody>
+          <tr><td><code>data/sources/binance.py</code>, <code>data/build.py</code></td><td>download + normalize</td></tr>
+          <tr><td><code>data/resample.py</code></td><td>canonical OHLCV resampling</td></tr>
+          <tr><td><code>data/validate.py</code></td><td>data-quality reporting</td></tr>
+          <tr><td><code>features/core.py</code>, <code>features/market.py</code></td><td>indicators and flow features</td></tr>
+          <tr><td><code>strategies/*</code></td><td>breakout triggers</td></tr>
+          <tr><td><code>backtest/engine.py</code>, <code>backtest/metrics.py</code></td><td>VectorBT engine, metrics</td></tr>
+          <tr><td><code>analytics/excursions.py</code></td><td>reversion / excursion analysis</td></tr>
+          <tr><td><code>analytics/confluence.py</code></td><td>filter evaluation, design/validate</td></tr>
+          <tr><td><code>analytics/regimes.py</code></td><td>regime classifier + gate</td></tr>
+          <tr><td><code>analytics/gating.py</code></td><td>regime-gated backtest</td></tr>
+        </tbody>
+      </table>
+    </figure>
+
+    <h4>Tests</h4>
+    <p><code>uv run pytest</code> — 97 tests, including deterministic end-to-end, lookahead/causality, resampling, regime and gating tests.</p>
+  </section>
+
+  <hr class="end">
+</div>
+
+<footer class="colophon">
+  <p class="small">Quant-Lab Research Note · Breakout, Confluence and Regime Study · BTCUSDT · 2025-01-01 → 2026-08-31. Source: <code>reports/breakout_regime_study.md</code>. Typeset in EB Garamond with IBM Plex Mono for data. This is a negative result, reported in full.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var INK="#111", MUT="#77736a", FAINT="#a9a597", HAIR="#d9d5c7", RULE="#b9b4a4",
+      ACC="#8c1d18", BLUE="#3a5a78", PAPER="#fffff8";
+  function esc(s){return String(s);}
+  function txt(x,y,s,opt){
+    opt=opt||{};
+    return '<text x="'+x+'" y="'+y+'" fill="'+(opt.fill||MUT)+'" font-size="'+(opt.size||11)+'"'
+      +(opt.anchor?' text-anchor="'+opt.anchor+'"':'')
+      +(opt.italic?' font-style="italic"':'')
+      +(opt.mono?' font-family="IBM Plex Mono, monospace"':'')
+      +(opt.weight?' font-weight="'+opt.weight+'"':'')
+      +'>'+s+'</text>';
+  }
+  function line(x1,y1,x2,y2,c,w,dash){
+    return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+(c||HAIR)+'" stroke-width="'+(w||1)+'"'
+      +(dash?' stroke-dasharray="'+dash+'"':'')+'/>';
+  }
+  function circle(cx,cy,r,fill,stroke,sw){
+    return '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+(fill||"none")+'" stroke="'+(stroke||INK)+'" stroke-width="'+(sw||1.4)+'"/>';
+  }
+  function svg(w,h,inner){
+    return '<svg viewBox="0 0 '+w+' '+h+'" role="img" preserveAspectRatio="xMidYMid meet">'+inner+'</svg>';
+  }
+
+  /* ---------- Figure 1: reversion CDF ---------- */
+  (function(){
+    var W=680,H=250,L=52,R=24,T=22,B=42;
+    var labels=["1m","5m","15m","1h","4h","1d","7d"];
+    var vals=[55.8,77.1,85.8,92.9,96.5,98.2,99.2];
+    var iw=W-L-R, ih=H-T-B;
+    var x=function(i){return L+iw*i/(labels.length-1);};
+    var y=function(v){return T+ih*(1-v/100);};
+    var s="";
+    [0,25,50,75,100].forEach(function(g){
+      s+=line(L,y(g),W-R,y(g),g===0?RULE:HAIR,1);
+      s+=txt(L-8,y(g)+4,g+"%",{anchor:"end",size:10,mono:true});
+    });
+    labels.forEach(function(l,i){ s+=txt(x(i),H-B+18,l,{anchor:"middle",size:10.5,mono:true}); });
+    var pts=vals.map(function(v,i){return x(i)+","+y(v);}).join(" ");
+    s+='<polyline points="'+pts+'" fill="none" stroke="'+INK+'" stroke-width="1.6"/>';
+    vals.forEach(function(v,i){ s+=circle(x(i),y(v),3.4,PAPER,INK,1.6); });
+    s+=line(x(6),y(99.2),x(6),y(100),HAIR,1);
+    s+=txt(x(6)-4,y(99.2)-8,"99.2%",{anchor:"end",size:10,mono:true,fill:INK});
+    s+=txt(x(3),y(92.9)-10,"92.9% by 1h",{anchor:"middle",size:10,fill:ACC});
+    document.getElementById("fig-cdf").innerHTML=svg(W,H,s);
+  })();
+
+  /* ---------- Figure 2: excursion lollipops (log x) ---------- */
+  (function(){
+    var W=680,H=320,L=100,R=70,T=26,rowh=32;
+    var rows=[
+      ["≤1m",1390,0.015],["1m–5m",532,0.066],["5m–15m",216,0.143],["15m–1h",178,0.300],
+      ["1h–4h",88,0.564],["4h–1d",42,1.048],["1d–7d",25,2.955],["not reverted",21,14.871]
+    ];
+    var lmin=Math.log10(0.01), lmax=Math.log10(20);
+    var x0=L, x1=W-R;
+    var x=function(v){var l=Math.log10(v);return x0+(l-lmin)/(lmax-lmin)*(x1-x0);};
+    var s="";
+    s+=line(x(0.01),T-4,x(0.01),T+rows.length*rowh,HAIR,1);
+    [0.01,0.1,1,10].forEach(function(g){
+      s+=line(x(g),T-4,x(g),T+rows.length*rowh,HAIR,1);
+      s+=txt(x(g),H-8,(g<1?g:g)+"%",{anchor:"middle",size:10,mono:true});
+    });
+    rows.forEach(function(r,i){
+      var cy=T+i*rowh+rowh/2, v=r[2], col=(i===rows.length-1)?ACC:INK;
+      s+=txt(L-12,cy-2,r[0],{anchor:"end",size:11,fill:(i===rows.length-1)?ACC:"#33322d"});
+      s+=txt(L-12,cy+11,"n="+r[1].toLocaleString(),{anchor:"end",size:9,mono:true,fill:FAINT});
+      s+=line(x0,cy,x(v),cy,HAIR,1.4);
+      s+=circle(x(v),cy,4.2,col,col,1.2);
+      var lab=" "+(v<1?v.toFixed(3):v.toFixed(2))+"%";
+      s+=txt(x(v)+9,cy+4,lab,{anchor:"start",size:10,mono:true,fill:col});
+    });
+    s+=txt(L,H-24,"mean excursion before reversion — log scale",{size:10,italic:true,fill:FAINT});
+    document.getElementById("fig-exc").innerHTML=svg(W,H,s);
+  })();
+
+  /* ---------- Figure 3: 1m confluence lift dot plot ---------- */
+  (function(){
+    var W=680,H=300,L=190,R=60,T=30,rowh=30;
+    var rows=[
+      ["volume ≥ 1.5×",0.90,1.17],["taker_ratio ≥ 0.55",0.98,1.06],["cvd_20 > 0",0.99,1.07],
+      ["close > EMA200",1.03,1.10],["strong_close ≥ 0.7",0.94,1.02],["bandwidth_z ≤ −0.5",0.97,1.08],
+      ["oi_change_1h > 0",1.05,0.94],["basis > 0",null,0.87]
+    ];
+    var dmin=0.85,dmax=1.25, x0=L,x1=W-R;
+    var x=function(v){return x0+(v-dmin)/(dmax-dmin)*(x1-x0);};
+    var s="";
+    s+=line(x(1),T-6,x(1),T+rows.length*rowh,RULE,1,"4 4");
+    [0.85,0.9,0.95,1.0,1.05,1.1,1.15,1.2,1.25].forEach(function(g){
+      var major=(g===1.0);
+      s+=line(x(g),T-6,x(g),T+rows.length*rowh,major?RULE:HAIR,1);
+      if(g===0.9||g===1.0||g===1.1||g===1.2)
+        s+=txt(x(g),H-8,g.toFixed(2),{anchor:"middle",size:9.5,mono:true});
+    });
+    s+=txt(x(1),T-14,"lift = 1.00 (no effect)",{anchor:"middle",size:10,italic:true,fill:ACC});
+    rows.forEach(function(r,i){
+      var cy=T+i*rowh+rowh/2;
+      s+=txt(L-12,cy+4,r[0],{anchor:"end",size:11,fill:"#33322d"});
+      if(r[1]!==null && r[2]!==null) s+=line(x(r[1]),cy,x(r[2]),cy,HAIR,1.2);
+      if(r[1]!==null) s+=circle(x(r[1]),cy,4,PAPER,INK,1.4);
+      s+=circle(x(r[2]),cy,4,ACC,ACC,1);
+    });
+    s+='<g transform="translate('+(L+10)+','+(H-30)+')">'
+      +circle(0,0,4,PAPER,INK,1.4)+txt(10,4,"design",{size:10,fill:MUT})
+      +circle(70,0,4,ACC,ACC,1)+txt(80,4,"validate",{size:10,fill:ACC})+'</g>';
+    document.getElementById("fig-conf1m").innerHTML=svg(W,H,s);
+  })();
+
+  /* ---------- Figure 4: P(good) by trigger/timeframe ---------- */
+  (function(){
+    var W=680,H=310,L=60,R=30,T=30,rowh=34;
+    var rows=[
+      ["bollinger · 1m",null,4.9],["bollinger · 15m",18.0,19.5],["bollinger · 1h",30.4,32.1],
+      ["squeeze · 15m",14.3,21.9],["squeeze · 1h",16.7,29.4],
+      ["range_hold · 15m",16.7,30.0],["range_hold · 1h",0.0,0.0]
+    ];
+    var dmax=35, x0=L,x1=W-R;
+    var x=function(v){return x0+v/dmax*(x1-x0);};
+    var s="";
+    [0,5,10,15,20,25,30,35].forEach(function(g){
+      s+=line(x(g),T-6,x(g),T+rows.length*rowh,(g%10===0)?RULE:HAIR,1);
+      if(g%5===0) s+=txt(x(g),H-8,g+"%",{anchor:"middle",size:9.5,mono:true});
+    });
+    rows.forEach(function(r,i){
+      var cy=T+i*rowh+rowh/2;
+      s+=txt(L-12,cy+4,r[0],{anchor:"end",size:11,fill:"#33322d"});
+      if(r[1]!==null) s+=line(x(r[1]),cy,x(r[2]),cy,HAIR,1.2);
+      if(r[1]!==null) s+=circle(x(r[1]),cy,4,PAPER,INK,1.4);
+      s+=circle(x(r[2]),cy,4,ACC,ACC,1);
+    });
+    s+='<g transform="translate('+(L+10)+','+(H-32)+')">'
+      +circle(0,0,4,PAPER,INK,1.4)+txt(10,4,"design",{size:10,fill:MUT})
+      +circle(70,0,4,ACC,ACC,1)+txt(80,4,"validate",{size:10,fill:ACC})+'</g>';
+    document.getElementById("fig-tf").innerHTML=svg(W,H,s);
+  })();
+
+  /* ---------- Figure 5: regime slope 2025 -> 2026 ---------- */
+  (function(){
+    var W=680,H=340,L=64,R=64,T=34,B=54;
+    var regimes=[
+      ["range_lowvol",17.2,16.4],["range_highvol",21.6,17.7],["up_highvol",19.8,35.0],
+      ["up_lowvol",15.0,14.5],["down_highvol",24.6,11.1],["down_lowvol",12.2,10.3]
+    ];
+    var vmax=40, iw=W-L-R, ih=H-T-B;
+    var xa=L, xb=W-R;
+    var y=function(v){return T+ih*(1-v/vmax);};
+    var s="";
+    [0,10,20,30,40].forEach(function(g){
+      s+=line(L-10,y(g),W-R+10,y(g),HAIR,1);
+      s+=txt(L-22,y(g)+4,g+"%",{anchor:"end",size:9.5,mono:true});
+    });
+    s+=line(xa,T-10,xa,H-B+10,HAIR,1);
+    s+=line(xb,T-10,xb,H-B+10,HAIR,1);
+    s+=txt(xa,T-18,"2025",{anchor:"middle",size:12,weight:600,fill:INK});
+    s+=txt(xb,T-18,"2026",{anchor:"middle",size:12,weight:600,fill:INK});
+    // baselines
+    s+=line(xa-10,y(18.8),xb+10,y(18.8),ACC,1,"3 3");
+    s+=line(xa-10,y(17.8),xb+10,y(17.8),BLUE,1,"3 3");
+    s+=txt(xa+8,y(18.8)-5,"2025 base 18.8%",{anchor:"start",size:9,fill:ACC,mono:true});
+    s+=txt(xa+8,y(17.8)+13,"2026 base 17.8%",{anchor:"start",size:9,fill:BLUE,mono:true});
+    // build labels with de-collision
+    var left=regimes.map(function(r){return {y:y(r[1]),name:r[0],val:r[1],hl:(r[0]==="up_highvol"||r[0]==="down_highvol")};});
+    var right=regimes.map(function(r){return {y:y(r[2]),name:r[0],val:r[2],hl:(r[0]==="up_highvol"||r[0]==="down_highvol")};});
+    function spread(a){a.sort(function(p,q){return p.y-q.y;});for(var i=1;i<a.length;i++){if(a[i].y-a[i-1].y<17)a[i].y=a[i-1].y+17;}}
+    spread(left); spread(right);
+    regimes.forEach(function(r){
+      var hl=(r[0]==="up_highvol"||r[0]==="down_highvol");
+      var col=hl?INK:"#b8b4a6", w=hl?2:1.1;
+      s+=line(xa,y(r[1]),xb,y(r[2]),col,w);
+      s+=circle(xa,y(r[1]),3,hl?INK:PAPER,hl?INK:"#b8b4a6",1.2);
+      s+=circle(xb,y(r[2]),3,hl?INK:PAPER,hl?INK:"#b8b4a6",1.2);
+    });
+    left.forEach(function(it){
+      if(Math.abs(it.y-(y(it.val)))>1) s+=line(xa-2,y(it.val),xa-8,it.y,HAIR,1);
+      s+=txt(xa-10,it.y+4,it.name+"  "+it.val.toFixed(1)+"%",{anchor:"end",size:10,mono:true,fill:it.hl?INK:FAINT});
+    });
+    right.forEach(function(it){
+      if(Math.abs(it.y-(y(it.val)))>1) s+=line(xb+2,y(it.val),xb+8,it.y,HAIR,1);
+      s+=txt(xb+10,it.y+4,it.val.toFixed(1)+"%  "+it.name,{anchor:"start",size:10,mono:true,fill:it.hl?INK:FAINT});
+    });
+    s+=txt(L-22,H-B+26,"P(good), 15m Bollinger breakout",{size:10,italic:true,fill:FAINT});
+    document.getElementById("fig-regime").innerHTML=svg(W,H,s);
+  })();
+
+  /* ---------- Figure 6: gated vs ungated total return ---------- */
+  (function(){
+    var W=680,H=280,L=64,R=30,T=34,B=54;
+    var data=[
+      ["2025 ungated",-78.5,"u"],["2025 gated",-25.4,"g"],
+      ["2026 ungated",-58.0,"u"],["2026 gated",-7.0,"g"]
+    ];
+    var vmin=-90, iw=W-L-R, ih=H-T-B;
+    var slot=iw/4;
+    var y=function(v){return T+ih*(v/vmin);}; // vmin negative -> 0 at top
+    var s="";
+    [0,-20,-40,-60,-80].forEach(function(g){
+      s+=line(L,y(g),W-R,y(g),g===0?RULE:HAIR,1);
+      s+=txt(L-10,y(g)+4,g+"%",{anchor:"end",size:9.5,mono:true});
+    });
+    data.forEach(function(d,i){
+      var cx=L+slot*i+slot/2, bw=slot*0.42;
+      var col=(d[2]==="u")?"#c9c5b6":ACC;
+      var y0=y(0), y1=y(d[1]), hgt=y1-y0;
+      s+='<rect x="'+(cx-bw/2)+'" y="'+y0+'" width="'+bw+'" height="'+hgt+'" fill="'+col+'"/>';
+      if(hgt>34){
+        s+=txt(cx,y1-11,d[1].toFixed(1)+"%",{anchor:"middle",size:10.5,mono:true,fill:(d[2]==="u")?INK:PAPER,weight:600});
+      }else{
+        s+=txt(cx,y1+15,d[1].toFixed(1)+"%",{anchor:"middle",size:10.5,mono:true,fill:(d[2]==="u")?MUT:ACC,weight:600});
+      }
+      var parts=d[0].split(" ");
+      s+=txt(cx,H-B+18,parts[0],{anchor:"middle",size:10.5,mono:true,fill:"#33322d"});
+      s+=txt(cx,H-B+32,parts[1],{anchor:"middle",size:10,italic:true,fill:(d[2]==="u")?MUT:ACC});
+    });
+    s+=txt(L-10,H-B+32,"total return",{size:10,italic:true,fill:FAINT});
+    document.getElementById("fig-bt").innerHTML=svg(W,H,s);
+  })();
+})();
+</script>
+</body>
+</html>

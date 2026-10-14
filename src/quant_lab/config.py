@@ -34,6 +34,7 @@ def project_root() -> Path:
 class Paths:
     data_raw: Path
     data_normalized: Path
+    data_derived: Path
     data_catalogs: Path
     experiments: Path
 
@@ -46,12 +47,19 @@ class Paths:
         return cls(
             data_raw=p("data_raw", "data/raw"),
             data_normalized=p("data_normalized", "data/normalized"),
+            data_derived=p("data_derived", "data/derived"),
             data_catalogs=p("data_catalogs", "data/catalogs"),
             experiments=p("experiments", "experiments"),
         )
 
     def ensure(self) -> None:
-        for path in (self.data_raw, self.data_normalized, self.data_catalogs, self.experiments):
+        for path in (
+            self.data_raw,
+            self.data_normalized,
+            self.data_derived,
+            self.data_catalogs,
+            self.experiments,
+        ):
             path.mkdir(parents=True, exist_ok=True)
 
 

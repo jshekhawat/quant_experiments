@@ -1,6 +1,7 @@
 # Data and experiment artifacts (regenerate locally)
 data/raw/
 data/normalized/
+data/derived/
 data/catalogs/*.json
 experiments/results/
 experiments/reports/

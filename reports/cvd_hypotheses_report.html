@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CVD Research — Hypothesis Report (2026)</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --ink:#e8eaed; --muted:#9aa3b2;
+    --line:#2a2f3a; --accent:#6ea8fe; --neg:#ff6b6b; --pos:#4ade80; --amber:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 24px 80px}
+  h1{font-size:30px;margin:0 0 6px;letter-spacing:-.02em}
+  h2{font-size:22px;margin:44px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:17px;margin:26px 0 8px;color:#cfd6e4}
+  h4{font-size:14px;margin:18px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  p{margin:10px 0}
+  a{color:var(--accent)}
+  .sub{color:var(--muted);font-size:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0}
+  .card.warn{border-color:#6b3a3a;background:#201417}
+  .badge{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;
+    border:1px solid var(--line);color:var(--muted);vertical-align:middle}
+  .badge.neg{color:#ffd0d0;background:#3a1c1c;border-color:#6b3a3a}
+  .badge.ok{color:#d1f7dd;background:#12301f;border-color:#2f6b46}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13.5px}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:#cfd6e4;font-weight:600}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr.total td{font-weight:600;background:var(--panel2)}
+  code{background:#0b0d11;border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12.5px}
+  pre{background:#0b0d11;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;font-size:12.5px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+  .kpi{font-size:26px;font-weight:700;letter-spacing:-.02em}
+  .kpi.neg{color:var(--neg)}
+  .muted{color:var(--muted)}
+  .neg{color:var(--neg)} .pos{color:var(--pos)} .amber{color:var(--amber)}
+  ul{margin:8px 0 8px 18px;padding:0} li{margin:4px 0}
+  .toc a{display:inline-block;margin:0 12px 6px 0}
+  hr{border:0;border-top:1px solid var(--line);margin:28px 0}
+  .small{font-size:12.5px;color:var(--muted)}
+  .tag{font-size:11px;padding:2px 7px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);margin-right:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>CVD &amp; Order-Flow Research Report</h1>
+  <p class="sub">Four hypotheses tested on Binance 1-minute klines · exploratory, single-regime (2026) · generated 2026-10-09</p>
+
+  <div class="card">
+    <h4>Headline</h4>
+    <p style="font-size:18px;margin:6px 0">
+      <span class="badge neg">NO EDGE (H0)</span>
+      &nbsp;All four order-flow hypotheses tested today were rejected. Every preregistered
+      pass/fail criterion failed in every study, and no parameter region in any robustness
+      sweep was stable.
+    </p>
+    <p class="small">
+      Data covers <b>2026-01-01 → 2026-09-30 only</b> for the tested universe (BTCUSDT is the
+      sole symbol with multi-year history). Every verdict is therefore <b>exploratory</b>:
+      a negative is as unconfirmable out-of-sample as a positive would have been.
+    </p>
+  </div>
+
+  <h3>Summary of tested hypotheses</h3>
+  <table>
+    <thead><tr>
+      <th>#</th><th>Hypothesis</th><th>Universe</th><th>Primary spec</th>
+      <th class="num">Design IC</th><th class="num">Test IC [95% CI]</th><th>Verdict</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td>1</td><td>Spot–perp CVD divergence</td><td>top-10 crypto (spot∩perp)</td>
+        <td>1h · 4h · w=60</td><td class="num">+0.0248</td>
+        <td class="num neg">−0.0040 [−0.0239, 0.0170]</td><td><span class="badge neg">NO EDGE</span></td>
+      </tr>
+      <tr>
+        <td>2</td><td>H1 — Price absorption</td><td>top-10 crypto perps</td>
+        <td>1h · 4h · W=720</td><td class="num">+0.0049</td>
+        <td class="num neg">−0.0187 [−0.0379, 0.0007]</td><td><span class="badge neg">NO EDGE</span></td>
+      </tr>
+      <tr>
+        <td>3</td><td>H2 — Failed liquidity sweeps</td><td>top-10 crypto perps</td>
+        <td>1h · 4h · L=48</td><td class="num">+0.0495</td>
+        <td class="num neg">−0.0022 [−0.0807, 0.0654]</td><td><span class="badge neg">NO EDGE</span></td>
+      </tr>
+      <tr>
+        <td>4</td><td>H3 — Flow-confirmed breakouts</td><td>62 crypto perps</td>
+        <td>1h · 4h · L=48, w=4</td><td class="num">−0.0296</td>
+        <td class="num neg">−0.0146 [−0.0504, 0.0259]</td><td><span class="badge neg">NO EDGE</span></td>
+      </tr>
+      <tr>
+        <td>4b</td><td>H3 — same, +TradFi perps</td><td>100 symbols</td>
+        <td>1h · 4h · L=48, w=4</td><td class="num">−0.0107</td>
+        <td class="num neg">−0.0057 [−0.0362, 0.0243]</td><td><span class="badge neg">NO EDGE</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="toc small">
+    Jump to: <a href="#method">Common methodology</a>
+    <a href="#s1">1 · Divergence</a> <a href="#s2">2 · Absorption</a>
+    <a href="#s3">3 · Sweeps</a> <a href="#s4">4 · Breakouts</a>
+    <a href="#synth">Synthesis</a> <a href="#rec">Recommendation</a> <a href="#repro">Reproducibility</a>
+  </p>
+
+  <h2 id="method">Common methodology</h2>
+  <div class="card">
+    <h4>Data &amp; features</h4>
+    <ul>
+      <li><b>Source:</b> Binance public bulk archives; 1-minute OHLCV klines with taker-buy volume and taker-buy quote volume.</li>
+      <li><b>CVD / flow:</b> <code>delta = 2·taker_buy_volume − volume</code>, <code>quote_delta = 2·taker_buy_quote_volume − quote_volume</code>. Working in quote (USDT) units for cross-asset comparability. CVD is <b>taker flow only</b> — it cannot see maker intent, hidden liquidity, or cancellations.</li>
+      <li><b>Resampling:</b> canonical 1m→1h aggregation (open=first, high/low=extreme, close=last, volumes &amp; taker-buy summed).</li>
+      <li><b>Regimes:</b> causal trend×vol classifier (up/down/range × high/lowvol), shifted one bar.</li>
+    </ul>
+    <h4>Causality &amp; timing contract</h4>
+    <ul>
+      <li>Every feature uses <b>trailing windows only</b>; prior-range levels exclude the current bar.</li>
+      <li>Signals evaluated at the <b>close of bar t</b>; all outcomes begin at <b>t+1</b> (one-bar execution delay).</li>
+      <li>Explicit unit tests assert look-ahead freedom (appending future bars must not change past feature values) and forward-return alignment (no same-bar leakage).</li>
+    </ul>
+    <h4>Evaluation</h4>
+    <ul>
+      <li>Pooled <b>rank IC</b> of the signal vs the <b>oriented</b> forward return, with <b>block-bootstrap</b> CIs (blocks ≈ horizon, to respect overlapping windows).</li>
+      <li><b>Matched controls</b> (high vs low signal, matched on volatility, trend, activity/liquidity and regime) and a <b>control regression</b> clustered by symbol×day.</li>
+      <li>Chronological <b>design (Jan–Apr) / test (May–Sep)</b> split; full parameter sweeps reported; multiple-testing acknowledged (Benjamini–Hochberg in principle).</li>
+      <li><b>Costs:</b> ~12 bps round-trip (4 bps fee + 2 bps slippage per side).</li>
+    </ul>
+    <p class="small"><b>Universal caveat:</b> single regime (2026), in-sample. No cross-regime out-of-sample exists for this universe.</p>
+  </div>
+
+  <!-- ================= 1 ================= -->
+  <h2 id="s1">1 · Spot–Perp CVD Divergence</h2>
+  <p><span class="tag">status: complete</span><span class="tag">exploratory</span><span class="badge neg">NO EDGE</span></p>
+  <div class="card">
+    <p><b>Question.</b> Does divergence between spot taker flow and perp taker flow predict
+    forward returns? A move led by spot may be “real” demand; a move led by perps may be
+    crowded leverage prone to reversal.</p>
+    <p><b>Signal.</b> <code>D = z(spot rolling flow) − z(perp rolling flow)</code>, each flow a
+    60-bar rolling sum z-scored over a 720-bar window. Events = <code>|D| ≥ trailing q95</code>.
+    Predicted: <code>sign(D)</code> → forward return (spot-led ⇒ continuation).</p>
+    <p><b>Data / spec.</b> Top-10 crypto <em>cross-market</em> (present in both spot and perp top-100);
+    1h bars (from 1m); primary horizon 4h; market-neutral (cross-sectionally demeaned) forward
+    returns; 12 bps.</p>
+
+    <h4>Primary result — pooled rank IC(D, forward return)</h4>
+    <table>
+      <thead><tr><th>Period</th><th class="num">Pooled IC</th><th class="num">Cross-sectional IC</th><th class="num">n</th></tr></thead>
+      <tbody>
+        <tr><td>Design (Jan–Apr)</td><td class="num">+0.0248</td><td class="num">+0.0064</td><td class="num">25,920</td></tr>
+        <tr><td>Test (May–Sep)</td><td class="num neg">−0.0040</td><td class="num neg">−0.0037</td><td class="num">33,205</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Test 95% block-bootstrap CI: <b>[−0.0239, +0.0170]</b> (spans zero). Design IC crossed the 0.02 bar and then flipped sign out-of-sample.</p>
+
+    <h4>Disconfirming evidence</h4>
+    <ul>
+      <li><b>Deciles non-monotone</b> (spearman −0.067); top−bottom decile spread <b>−11.84 bps</b>.</li>
+      <li><b>Leave-one-out:</b> dropping any single symbol leaves IC negative (−0.0011 … −0.0070).</li>
+      <li><b>Ex-BTC/ETH IC:</b> −0.0068.</li>
+      <li>No criterion (C1–C7) passed; controls (C4) were moot.</li>
+    </ul>
+    <p class="small">Artifacts: <code>reports/spot_cvd_divergence_study.md</code>, <code>reports/spot_cvd_divergence_results.md</code>.</p>
+  </div>
+
+  <!-- ================= 2 ================= -->
+  <h2 id="s2">2 · H1 — Price Absorption</h2>
+  <p><span class="tag">status: complete</span><span class="tag">exploratory</span><span class="badge neg">NO EDGE</span></p>
+  <div class="card">
+    <p><b>Question.</b> When aggressive selling produces unusually <em>little</em> downward
+    price movement (absorption), does price subsequently outperform comparable strong-selling
+    events? Symmetric for buying.</p>
+    <p><b>Signal.</b> Rolling OLS <code>r ~ α + β·f</code> over a trailing 720-bar window
+    (<code>f</code> = quote flow / trailing activity). Residual <code>s = r − r̂</code>
+    (impact surprise); absorption score <code>A = −sign(f)·s</code>, z-scored. Strong-flow
+    events = <code>|f| ≥ trailing q90</code>. Outcome = oriented forward return
+    <code>y = −sign(f)·fwd_ret</code>. A regression-based impact model is used deliberately
+    instead of a naive return/flow ratio (unstable as flow → 0).</p>
+    <p><b>Data / spec.</b> Top-10 crypto perps; 1h; primary horizon 4h; 12 bps.</p>
+
+    <h4>Primary result</h4>
+    <table>
+      <thead><tr><th>Period</th><th class="num">Pooled IC(A, y)</th><th class="num">n</th></tr></thead>
+      <tbody>
+        <tr><td>Design</td><td class="num">+0.0049</td><td class="num">23,830</td></tr>
+        <tr><td>Test</td><td class="num neg">−0.0187</td><td class="num">36,670</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Test CI <b>[−0.0379, +0.0007]</b>; strong-flow-only test IC −0.0047. Horizons: 1h −0.0171 · 4h −0.0187 · 24h +0.0014 · 3d −0.0035.</p>
+
+    <div class="grid">
+      <div>
+        <h4>Matched control &amp; regression</h4>
+        <ul>
+          <li>Matched spread (absorbed − control): <b>+17.2 bps</b>, CI [−7.6, +37.0] — includes zero.</li>
+          <li>Regression A coefficient ≈ <b>0.00001</b>, CI [−0.00039, +0.00042] — zero.</li>
+          <li>Per-symbol: <b>8 of 10 negative</b>.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Robustness</h4>
+        <p class="small">18 cells (timeframe × window × quantile): <b>test IC negative in every
+        cell</b>; design IC positive in most → systematic design→test sign flip.</p>
+      </div>
+    </div>
+    <p class="small">Artifacts: <code>reports/cvd_absorption_study.md</code>, <code>reports/cvd_absorption_results.md</code>, <code>reports/cvd_absorption_findings.md</code>.</p>
+  </div>
+
+  <!-- ================= 3 ================= -->
+  <h2 id="s3">3 · H2 — Failed Liquidity Sweeps</h2>
+  <p><span class="tag">status: complete</span><span class="tag">exploratory</span><span class="badge neg">NO EDGE</span></p>
+  <div class="card">
+    <p><b>Question.</b> When price sweeps a prior swing level and closes back inside (a failed
+    sweep / stop-run), does the magnitude and direction of aggressive flow during the sweep
+    predict reversal strength?</p>
+    <p><b>Signal.</b> Level = trailing prior-range extreme over 48 bars (<b>excludes the current
+    bar</b>). Failed sweep = wick beyond the level, close back inside (24-bar cooldown).
+    Aligned flow <code>af = −d·F / activity</code> (spends in the sweep direction), z-scored;
+    outcome = oriented reversal return <code>y = d·fwd_ret</code>. Hypothesis: large aligned
+    flow (trapped chasers) ⇒ stronger reversal.</p>
+    <p><b>Data / spec.</b> Top-10 crypto perps; 1h; 4h; 1,262 events (508 design / 754 test).</p>
+
+    <h4>Primary result</h4>
+    <table>
+      <thead><tr><th>Period</th><th class="num">Event pooled IC(af, y)</th><th class="num">n</th></tr></thead>
+      <tbody>
+        <tr><td>Design</td><td class="num">+0.0495</td><td class="num">508</td></tr>
+        <tr><td>Test</td><td class="num neg">−0.0022</td><td class="num">754</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Test CI <b>[−0.0807, +0.0654]</b>. Horizons: 1h −0.0067 · 4h −0.0022 · 24h +0.0068 · 3d +0.0063.</p>
+
+    <div class="grid">
+      <div>
+        <h4>Matched control &amp; regression</h4>
+        <ul>
+          <li>Matched spread (high − low af): <b>−32.0 bps</b>, CI [−125.4, +46.0] — wrong sign, includes zero.</li>
+          <li>Regression af coefficient ≈ 0.00002, CI [−0.00070, +0.00080].</li>
+          <li>Per-symbol wildly mixed (BTC +0.152, ZEC −0.172; n≈80) — noise.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Robustness</h4>
+        <p class="small">18 cells (timeframe × lookback × flow-window): design and test signs
+        disagree across cells; no stable region. The design 0.0495 reverses in test.</p>
+      </div>
+    </div>
+    <p class="small">Artifacts: <code>reports/cvd_failed_sweeps_study.md</code>, <code>reports/cvd_failed_sweeps_results.md</code>, <code>reports/cvd_failed_sweeps_findings.md</code>.</p>
+  </div>
+
+  <!-- ================= 4 ================= -->
+  <h2 id="s4">4 · H3 — Flow-Confirmed Breakout Continuation</h2>
+  <p><span class="tag">status: complete</span><span class="tag">exploratory</span><span class="badge neg">NO EDGE</span></p>
+  <div class="card">
+    <p><b>Question.</b> Do breakouts supported by <em>persistent same-direction</em> aggressive
+    flow continue more than breakouts with weak flow or immediate flow reversal — <b>after
+    accounting for the breakout itself</b>?</p>
+    <p><b>Signal.</b> Breakout = close beyond the trailing 48-bar prior-range extreme
+    (excludes current bar; 24-bar cooldown). Aligned, activity-normalised flow over 4 bars,
+    z-scored (<code>flow_align_z</code>) plus signed persistence <code>d·mean(sign(delta))</code>.
+    Outcome = oriented forward return, continuation-failure flag, MFE/MAE.</p>
+    <p><b>Prior-work overlap.</b> <code>breakout_regime_study.md</code> already tested the
+    single-bar filter <code>cvd_20&gt;0</code> (validate lift 1.07, <b>not significant</b>).
+    H3 adds multi-bar persistence, displacement, failure-rate outcomes, a wider universe, and
+    an explicit incremental-vs-price-only test.</p>
+
+    <h4>Primary result — two universes</h4>
+    <table>
+      <thead><tr><th>Universe</th><th class="num">Events</th><th class="num">Design IC</th><th class="num">Test IC [95% CI]</th></tr></thead>
+      <tbody>
+        <tr><td>62 crypto perps</td><td class="num">6,806</td><td class="num">−0.0296</td><td class="num neg">−0.0146 [−0.0504, 0.0259]</td></tr>
+        <tr><td>100 symbols incl. TradFi</td><td class="num">9,469</td><td class="num">−0.0107</td><td class="num neg">−0.0057 [−0.0362, 0.0243]</td></tr>
+      </tbody>
+    </table>
+    <p class="small">62-crypto horizons (test IC): 1h −0.0179 · 4h −0.0146 · 24h −0.0115 · 3d −0.0086 — negative everywhere.</p>
+
+    <div class="grid">
+      <div>
+        <h4>Matched control &amp; regression (62 crypto)</h4>
+        <ul>
+          <li>Matched spread (high − low alignment): <b>+21.8 bps</b>, CI [−27.6, +62.7] — includes zero, inconsistent with the negative IC.</li>
+          <li><b>Incremental</b> regression flow coefficient <b>−0.00093</b>, CI [−0.00235, +0.00047] — zero/negative.</li>
+          <li>Failure rate falls with alignment (0.588 → 0.441 across quintiles) but returns are non-monotone/inverted — no tradable structure.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Robustness</h4>
+        <p class="small">27 cells: at 15m/1h both design and test IC consistently negative;
+        at 4h design is strongly negative (−0.15…−0.21) while test flips small-positive —
+        instability, not a stable region.</p>
+      </div>
+    </div>
+    <p class="small">Artifacts: <code>reports/cvd_breakout_flow_study.md</code>, <code>reports/cvd_breakout_flow_results.md</code> (+<code>_all</code>), <code>reports/cvd_breakout_flow_findings.md</code>.</p>
+  </div>
+
+  <!-- ================= synthesis ================= -->
+  <h2 id="synth">Synthesis — what the four negatives say together</h2>
+  <div class="card">
+    <ul>
+      <li><b>Everything failed.</b> Across four independent order-flow hypotheses, <b>every</b>
+      preregistered criterion failed, on both design and test.</li>
+      <li><b>Recurring design→test sign flip.</b> Divergence (+0.0248→−0.0040), H1
+      (+0.0049→−0.0187) and H2 (+0.0495→−0.0022) all looked least-bad in-sample and reversed
+      out-of-sample — the classic selection artefact. H3 was negative in both windows.</li>
+      <li><b>No stable parameter region</b> in any of the robustness sweeps (18–27 cells each).</li>
+      <li><b>Consistency with prior work.</b> The existing
+      <code>breakout_regime_study</code> already found the <code>cvd_20&gt;0</code> breakout
+      filter insignificant; H3's result is directionally the same.</li>
+      <li><b>Direction, where anything appears, is often the opposite</b> of the hypothesis
+      (H1 test, H3 intraday) — not merely zero.</li>
+    </ul>
+    <p><b>Interpretation.</b> At 1-minute→1-hour resolution, net taker flow (CVD) shows no
+    incremental predictive value for future returns in this sample. The proxy nature of CVD
+    (no maker intent, no hidden liquidity) plus the single-regime sample are the two standing
+    limitations.</p>
+  </div>
+
+  <!-- ================= recommendation ================= -->
+  <h2 id="rec">Recommendation</h2>
+  <div class="card warn">
+    <ol>
+      <li><b>Do not re-tune any of these.</b> The sweeps already show no stable region;
+      changing thresholds to manufacture a positive would be curve-fitting, not evidence.</li>
+      <li><b>Highest-value next step: build 2024–2025 perp 1m history</b> (~2 h, ~3 GB; the
+      downloader supports it). Four hypotheses have been judged on a single regime; without
+      out-of-sample data, negatives are as unconfirmable as positives.</li>
+      <li><b>Question whether 1m-bar taker-flow CVD carries incremental information at all.</b>
+      Four independent features show none here. Before more variants, either raise information
+      content (tick/aggTrades — costly, lowers breadth) or move to a structurally different
+      source (funding/basis carry, cross-sectional relative strength).</li>
+      <li><b>If continuing the H-series:</b> H5 (impact asymmetry) is best kept as an
+      execution/cost model; H6 (spot lead–lag) is the last distinct flow test but risks
+      re-treading the failed divergence study.</li>
+      <li><b>Do not buy tick data yet</b> — the binding constraints are regime breadth and
+      effect existence, not resolution.</li>
+    </ol>
+  </div>
+
+  <!-- ================= reproducibility ================= -->
+  <h2 id="repro">Reproducibility</h2>
+  <div class="card">
+    <pre># 1 · Spot–perp divergence
+python scripts/divergence_study.py
+
+# 2 · H1 price absorption
+python scripts/absorption_study.py
+
+# 3 · H2 failed sweeps
+python scripts/sweep_study.py
+
+# 4 · H3 flow-confirmed breakouts
+python scripts/breakout_study.py                    # 62 crypto perps
+python scripts/breakout_study.py --include-noncrypto # 100 symbols
+
+# full test suite (causality, alignment, synthetic edge/no-edge)
+uv run pytest -q</pre>
+    <h4>Document &amp; artifact map</h4>
+    <table>
+      <thead><tr><th>Study</th><th>Design</th><th>Results</th><th>Findings</th><th>Machine outputs</th></tr></thead>
+      <tbody>
+        <tr><td>Divergence</td><td><code>spot_cvd_divergence_study.md</code></td><td><code>spot_cvd_divergence_results.md</code></td><td class="muted">—</td><td class="muted">—</td></tr>
+        <tr><td>H1 Absorption</td><td><code>cvd_absorption_study.md</code></td><td><code>cvd_absorption_results.md</code></td><td><code>cvd_absorption_findings.md</code></td><td><code>experiments/reports/absorption/</code></td></tr>
+        <tr><td>H2 Sweeps</td><td><code>cvd_failed_sweeps_study.md</code></td><td><code>cvd_failed_sweeps_results.md</code></td><td><code>cvd_failed_sweeps_findings.md</code></td><td><code>experiments/reports/sweeps/</code></td></tr>
+        <tr><td>H3 Breakouts</td><td><code>cvd_breakout_flow_study.md</code></td><td><code>cvd_breakout_flow_results.md</code></td><td><code>cvd_breakout_flow_findings.md</code></td><td><code>experiments/reports/breakouts/</code></td></tr>
+      </tbody>
+    </table>
+    <p class="small">All paths under <code>reports/</code> unless noted. No prior reports were
+    overwritten; no existing research code behaviour was changed. Reports were generated by
+    the scripts above without inspecting results first (methods frozen in the design docs).</p>
+  </div>
+
+  <hr>
+  <p class="small">quant-lab · personal crypto research environment · this report is a research
+  artifact, not investment advice; no live-trading connector is involved.</p>
+
+</div>
+</body>
+</html>

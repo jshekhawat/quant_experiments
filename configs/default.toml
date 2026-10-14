@@ -4,6 +4,9 @@
 [paths]
 data_raw = "data/raw"
 data_normalized = "data/normalized"
+# Derived feature datasets (e.g. reconstructed CVD) live here, separate from
+# exchange-normalized bars so they are never mistaken for source data.
+data_derived = "data/derived"
 data_catalogs = "data/catalogs"
 experiments = "experiments"
 

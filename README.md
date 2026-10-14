@@ -290,6 +290,29 @@ trade_imbalance`.
 
 List them: `quantlab features list`.
 
+### Recreating historical CVD
+
+CVD is accumulated net taker flow, and Binance klines already carry the taker-buy
+split, so it is an exact per-bar reconstruction — no tick data required:
+
+```bash
+# Top 100 liquid symbols, spot + USD-M futures, 2026 to date
+python scripts/recreate_cvd.py --fetch-top 100 \
+    --markets futures,spot --start 2026-01-01 --end 2026-10-01
+```
+
+This ranks live 24h quote volume (stable/stable and fiat pairs excluded),
+downloads and normalizes 1m bars, then writes continuous CVD partitions to
+`data/derived/cvd/{market}/{symbol}/1m/{year}/{month}.parquet` with columns
+`timestamp, symbol, market, volume_delta, cvd, quote_volume_delta, cvd_quote`.
+The cumulative sum is continuous across months and anchored at the first bar of
+the range; spot and futures are separate series and are never summed.
+
+Reuse a cached universe (`--universe-file configs/cvd_universe.json`) or explicit
+symbols (`--symbols BTCUSDT,ETHUSDT`), and pass `--no-download` to rebuild from
+bars you already have. Cost is small: ~17 MB of klines per symbol for nine months
+of both markets, so the whole top 100 is a few GB and a couple of minutes.
+
 ## 7. Creating strategies
 
 A strategy declares parameters, optionally computes features, and returns four

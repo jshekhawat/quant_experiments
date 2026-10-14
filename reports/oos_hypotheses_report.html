@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Out-of-Sample Order-Flow Hypotheses — 2025 design / 2026 test</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222b; --ink:#e8eaed; --muted:#9aa3b2;
+    --line:#2a2f3a; --accent:#6ea8fe; --neg:#ff6b6b; --pos:#4ade80; --amber:#fbbf24;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 24px 80px}
+  h1{font-size:30px;margin:0 0 6px;letter-spacing:-.02em}
+  h2{font-size:22px;margin:44px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:17px;margin:26px 0 8px;color:#cfd6e4}
+  h4{font-size:13px;margin:18px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  p{margin:10px 0}
+  a{color:var(--accent)}
+  .sub{color:var(--muted);font-size:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0}
+  .card.warn{border-color:#6b3a3a;background:#201417}
+  .card.note{border-color:#3a4a6b;background:#141a24}
+  .badge{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;
+    border:1px solid var(--line);color:var(--muted);vertical-align:middle}
+  .badge.neg{color:#ffd0d0;background:#3a1c1c;border-color:#6b3a3a}
+  .badge.ok{color:#d1f7dd;background:#12301f;border-color:#2f6b46}
+  .badge.flat{color:#ffe9c2;background:#332711;border-color:#6b5528}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13.5px}
+  th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:#cfd6e4;font-weight:600}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr.total td{font-weight:600;background:var(--panel2)}
+  code{background:#0b0d11;border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:12.5px}
+  pre{background:#0b0d11;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;font-size:12.5px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+  .kpi{font-size:26px;font-weight:700;letter-spacing:-.02em}
+  .muted{color:var(--muted)}
+  .neg{color:var(--neg)} .pos{color:var(--pos)} .amber{color:var(--amber)}
+  ul{margin:8px 0 8px 18px;padding:0} li{margin:4px 0}
+  hr{border:0;border-top:1px solid var(--line);margin:28px 0}
+  .small{font-size:12.5px;color:var(--muted)}
+  .tag{font-size:11px;padding:2px 7px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);margin-right:6px}
+  .pass{color:var(--pos)} .fail{color:var(--neg)}
+  .arrow{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Out-of-Sample Order-Flow Hypotheses</h1>
+  <p class="sub">design = 2025 · test = 2026 · 58 crypto perps (51 cross-market) · 1h bars · generated 2026-10-10</p>
+
+  <div class="card">
+    <h4>Headline</h4>
+    <p style="font-size:18px;margin:6px 0">
+      <span class="badge neg">NO EDGE (H0)</span>
+      &nbsp;All four order-flow hypotheses were re-tested on a genuine temporal split and
+      <b>all four fail</b>. Every nominated effect is indistinguishable from zero — or inverts — out of sample.
+    </p>
+    <p class="small">
+      This is the decisive comparison: the earlier runs used a short <b>2026-only</b> design window, which
+      manufactured small positive design-ICs. Replacing that window with a real <b>2025</b> design
+      <b>collapses every one of them to ~0</b> (or negative). The signals were in-sample artifacts.
+    </p>
+  </div>
+
+  <h3>The design-window artifact, in one table</h3>
+  <table>
+    <thead><tr>
+      <th>Study</th><th class="num">2026-only design IC</th><th class="num">2025 design IC</th>
+      <th class="num">2026 test IC (OOS)</th><th class="num">Test 95% CI</th><th>OOS verdict</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Spot–perp divergence</td><td class="num">+0.0248</td><td class="num">+0.0026</td>
+          <td class="num">+0.0019</td><td class="num">[−0.0091, +0.0120]</td><td><span class="badge neg">NO EDGE</span></td></tr>
+      <tr><td>H1 — price absorption</td><td class="num">+0.0049</td><td class="num">−0.0097</td>
+          <td class="num">−0.0103</td><td class="num">[−0.0206, +0.0014]</td><td><span class="badge neg">NO EDGE</span></td></tr>
+      <tr><td>H2 — failed sweeps</td><td class="num">+0.0495</td><td class="num">−0.0024</td>
+          <td class="num">+0.0062</td><td class="num">[−0.0201, +0.0354]</td><td><span class="badge neg">NO EDGE</span></td></tr>
+      <tr><td>H3 — flow-confirmed breakouts</td><td class="num">−0.0296</td><td class="num">+0.0203</td>
+          <td class="num">−0.0206</td><td class="num">[−0.0551, +0.0105]</td><td><span class="badge neg">NO EDGE</span></td></tr>
+    </tbody>
+  </table>
+  <p class="small">
+    Read down the “2026-only design” → “2025 design” columns: divergence +0.0248→+0.0026, sweeps +0.0495→−0.0024.
+    The apparent edge lives entirely in the short design slice and vanishes the moment the design window is real.
+    (H1 and H3 were negative or unstable to begin with.)
+  </p>
+
+  <div class="card note">
+    <h4>Method (unchanged from the frozen H-series)</h4>
+    <ul>
+      <li>Signals at the <b>close of bar t</b>; outcomes from <b>t+1</b> (1-bar delay); prior-range levels exclude the current bar.</li>
+      <li>Pooled <b>rank IC</b> of signal vs <b>oriented</b> forward return, with <b>block-bootstrap</b> CIs; matched controls; control regression; chronological split.</li>
+      <li>Universe: 58 crypto perps with 2025+2026 history (51 also spot, for divergence). 1h bars from 1m. Cost bar 12 bps.</li>
+      <li>Split: <b>design = 2025-01-01 → 2026-01-01</b>, <b>test = 2026-01-01 → 2026-10-01</b>.</li>
+    </ul>
+  </div>
+
+  <h2>1 · Spot–Perp CVD Divergence</h2>
+  <p><span class="tag">51 cross-market</span><span class="badge neg">NO EDGE</span></p>
+  <div class="card">
+    <p><b>Signal.</b> <code>D = z(spot flow) − z(perp flow)</code>, 60-bar window, 720-bar normalisation; predicted
+    <code>sign(D)</code> → forward return. <b>Outcome:</b> market-neutral, oriented 4h return.</p>
+    <table>
+      <thead><tr><th>Period</th><th class="num">Pooled IC</th><th class="num">Cross-sectional IC</th><th class="num">n</th></tr></thead>
+      <tbody>
+        <tr><td>Design (2025)</td><td class="num">+0.0026</td><td class="num">+0.0001</td><td class="num">415,741</td></tr>
+        <tr><td>Test (2026)</td><td class="num">+0.0019</td><td class="num">−0.0014</td><td class="num">327,600</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Test CI [−0.0091, +0.0120]. Decile monotonicity −0.21; decile spread −0.44 bps; IC ex-BTC/ETH +0.0010.</p>
+    <h4>Preregistered criteria</h4>
+    <table>
+      <thead><tr><th>C1 IC&gt;0.02 &amp; CI&gt;0</th><th>C2 sign-stable</th><th>C3 monotone</th><th>C5 cost-clearing</th><th>C6 leave-one-out</th><th>C7 ex-megacap</th></tr></thead>
+      <tbody><tr>
+        <td class="fail">✗</td><td class="pass">✓</td><td class="fail">✗</td><td class="fail">✗</td><td class="pass">✓</td><td class="pass">✓</td>
+      </tr></tbody>
+    </table>
+    <p class="small">Sign is stable and survives leave-one-out/megacap — but the magnitude is ~0.002 (10× below the 0.02 bar) and the CI spans zero. Partial pass, overall H0.</p>
+  </div>
+
+  <h2>2 · H1 — Price Absorption</h2>
+  <p><span class="tag">58 perps</span><span class="badge neg">NO EDGE</span></p>
+  <div class="card">
+    <p><b>Signal.</b> Residual of a rolling OLS <code>r ~ f</code> (720-bar); <code>A = −sign(f)·s</code>, z-scored;
+    strong-flow events <code>|f| ≥ q90</code>. Predicts reversal against the aggressor.</p>
+    <table>
+      <thead><tr><th>Period</th><th class="num">Pooled IC(A, y)</th><th class="num">n</th></tr></thead>
+      <tbody>
+        <tr><td>Design (2025)</td><td class="num">−0.0097</td><td class="num">428,326</td></tr>
+        <tr><td>Test (2026)</td><td class="num">−0.0103</td><td class="num">379,248</td></tr>
+      </tbody>
+    </table>
+    <div class="grid">
+      <div>
+        <h4>Horizons (test IC)</h4>
+        <p class="small">1h −0.0134 · 4h −0.0103 · 24h −0.0039 · 3d −0.0006 — negative everywhere.</p>
+        <h4>Matched control</h4>
+        <p class="small">absorbed − control: <b>+5.8 bps</b>, CI [−5.4, +17.2] — includes zero.</p>
+      </div>
+      <div>
+        <h4>Incremental regression</h4>
+        <p class="small">A coefficient ≈ <b>0.00002</b>, CI [−0.00024, +0.00033] — zero.</p>
+        <h4>Ex-BTC/ETH IC</h4>
+        <p class="small">−0.0101. Strong-flow-only test IC −0.0161.</p>
+      </div>
+    </div>
+    <p class="small"><b>Criteria P1–P7: all fail.</b> Note the IC is now <em>negative in both windows</em> — not merely absent.</p>
+  </div>
+
+  <h2>3 · H2 — Failed Liquidity Sweeps</h2>
+  <p><span class="tag">58 perps · 17,109 events</span><span class="badge neg">NO EDGE</span></p>
+  <div class="card">
+    <p><b>Signal.</b> Wick beyond the trailing 48-bar extreme, close back inside (24-bar cooldown);
+    aligned flow <code>af = −d·F/activity</code>, z-scored. Predicts stronger reversal against the sweep.</p>
+    <table>
+      <thead><tr><th>Period</th><th class="num">Event IC(af, y)</th><th class="num">n</th></tr></thead>
+      <tbody>
+        <tr><td>Design (2025)</td><td class="num">−0.0024</td><td class="num">9,353</td></tr>
+        <tr><td>Test (2026)</td><td class="num">+0.0062</td><td class="num">7,756</td></tr>
+      </tbody>
+    </table>
+    <div class="grid">
+      <div>
+        <h4>Horizons (test IC)</h4>
+        <p class="small">1h +0.0018 · 4h +0.0062 · 24h −0.0103 · 3d +0.0090 — sign flips by horizon.</p>
+        <h4>Matched control</h4>
+        <p class="small">high − low af: <b>−0.8 bps</b>, CI [−23.1, +23.5].</p>
+      </div>
+      <div>
+        <h4>Incremental regression</h4>
+        <p class="small">af coefficient +0.00020, CI [−0.00031, +0.00081] — zero.</p>
+        <h4>Ex-BTC/ETH IC</h4>
+        <p class="small">+0.0056.</p>
+      </div>
+    </div>
+    <p class="small"><b>Criteria Q1–Q5 fail;</b> Q6/Q7 pass trivially (both windows ≥ one horizon), but the headline IC
+    (0.0062) is far below the 0.02 bar with a CI spanning zero → H0.</p>
+  </div>
+
+  <h2>4 · H3 — Flow-Confirmed Breakout Continuation</h2>
+  <p><span class="tag">58 perps · 15,467 events</span><span class="badge neg">NO EDGE</span></p>
+  <div class="card">
+    <p><b>Signal.</b> Close beyond the trailing 48-bar extreme (24-bar cooldown); aligned, activity-normalised
+    flow over 4 bars, z-scored. Predicts continuation with the breakout.</p>
+    <table>
+      <thead><tr><th>Period</th><th class="num">Event IC(flow, y)</th><th class="num">n</th></tr></thead>
+      <tbody>
+        <tr><td>Design (2025)</td><td class="num">+0.0203</td><td class="num">8,518</td></tr>
+        <tr><td>Test (2026)</td><td class="num">−0.0206</td><td class="num">6,949</td></tr>
+      </tbody>
+    </table>
+    <div class="grid">
+      <div>
+        <h4>Horizons (test IC)</h4>
+        <p class="small">1h −0.0224 · 4h −0.0206 · 24h −0.0254 · 3d −0.0134 — negative everywhere.</p>
+        <h4>Matched control</h4>
+        <p class="small">high − low flow: <b>+11.2 bps</b>, CI [−17.1, +38.7] — includes zero.</p>
+      </div>
+      <div>
+        <h4>Incremental regression</h4>
+        <p class="small">flow coefficient <b>−0.00124</b>, CI [−0.00250, −0.00006] — <span class="neg">significantly negative</span> after controls.</p>
+        <h4>Ex-BTC/ETH IC</h4>
+        <p class="small">−0.0184.</p>
+      </div>
+    </div>
+    <p class="small"><b>Criteria R1–R7: all fail.</b> A design IC of +0.0203 flips to −0.0206 out of sample — the
+    cleanest example of the selection artifact. Directionally consistent with the earlier
+    <code>breakout_regime_study</code> negative (<code>cvd_20&gt;0</code>, lift 1.07 ns).</p>
+  </div>
+
+  <h2>Synthesis</h2>
+  <div class="card">
+    <ul>
+      <li><b>Four for four fail out-of-sample.</b> No hypothesis clears its preregistered bar on the 2026 holdout.</li>
+      <li><b>The design window was the whole story.</b> With a real 2025 design, the two “promising” signals
+      (divergence +0.0248, sweeps +0.0495) collapse to +0.0026 and −0.0024. The edge was an artifact of a short,
+      in-sample design slice — precisely the failure mode the earlier single-regime caveat warned about.</li>
+      <li><b>Where anything appears, it is often inverted:</b> H1's test IC is negative in both windows, and H3's
+      incremental coefficient is significantly negative. Not zero-with-noise — actively wrong-signed.</li>
+      <li><b>No horizon rescues them.</b> Across 1h/4h/24h/3d, H1 and H3 are negative everywhere; H2 flips sign by horizon.</li>
+    </ul>
+    <p><b>Interpretation.</b> At 1-minute→1-hour resolution, net taker flow (CVD) did not carry incremental predictive
+    information for forward returns in 2025–2026. The proxy nature of CVD and the two-regime sample remain the standing
+    limitations — but this is now a <b>temporal holdout</b>, not an in-sample fit.</p>
+  </div>
+
+  <div class="card warn">
+    <h4>Honest caveat</h4>
+    <p>2025 vs 2026 is <b>two regimes</b>, not many. This is a far stronger test than the single-regime runs, but it is
+    not a universal claim. The binding constraint remains regime breadth; more years (2023–2024, a real bear/high-vol
+    stretch) and market-factor neutralisation would strengthen any future conclusion.</p>
+  </div>
+
+  <h2>Reproducibility</h2>
+  <div class="card">
+    <pre># runs all four studies with design=2025 / test=2026, checkpointed per study
+python scripts/oos_hypotheses.py
+
+# faster (skip parameter sweeps; keeps IC + matched + regression)
+python scripts/oos_hypotheses.py --no-sweep
+
+# force a clean re-run
+python scripts/oos_hypotheses.py --force</pre>
+    <h4>Artifacts</h4>
+    <table>
+      <thead><tr><th>Study</th><th>Checkpoint</th><th>Spec</th></tr></thead>
+      <tbody>
+        <tr><td>Spot–perp divergence</td><td><code>experiments/reports/oos/divergence.{md,json}</code></td><td>51 cross-market · w=60 · h=4h</td></tr>
+        <tr><td>H1 absorption</td><td><code>experiments/reports/oos/absorption.{md,json}</code></td><td>58 perps · W=720 · q90 · h=4h</td></tr>
+        <tr><td>H2 sweeps</td><td><code>experiments/reports/oos/sweeps.{md,json}</code></td><td>58 perps · L=48 · cooldown 24 · h=4h</td></tr>
+        <tr><td>H3 breakouts</td><td><code>experiments/reports/oos/breakouts.{md,json}</code></td><td>58 perps · L=48 · w=4 · h=4h</td></tr>
+      </tbody>
+    </table>
+    <p class="small">Combined report: <code>reports/oos_hypotheses_results.md</code>. Prior (single-regime) work:
+    <code>reports/cvd_hypotheses_report.html</code>. No prior reports were overwritten.</p>
+  </div>
+
+  <hr>
+  <p class="small">quant-lab · personal crypto research environment · research artifact, not investment advice.</p>
+
+</div>
+</body>
+</html>

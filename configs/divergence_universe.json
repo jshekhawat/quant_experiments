@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-10-09T09:20:55.777492+00:00",
+  "rank_by": "combined_spot_perp_quoteVolume_24h",
+  "quote": "USDT",
+  "n": 10,
+  "universe": {
+    "spot": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "ZECUSDT",
+      "NEARUSDT",
+      "XRPUSDT",
+      "OGNUSDT",
+      "HYPEUSDT",
+      "BNBUSDT",
+      "DOGEUSDT"
+    ],
+    "futures": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "ZECUSDT",
+      "NEARUSDT",
+      "XRPUSDT",
+      "OGNUSDT",
+      "HYPEUSDT",
+      "BNBUSDT",
+      "DOGEUSDT"
+    ]
+  }
+}
